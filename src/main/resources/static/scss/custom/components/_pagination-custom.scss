@@ -1,0 +1,99 @@
+/** @section Pagination custom */
+
+.pagination {
+	display: block;
+	@include group(9px);
+}
+
+.page-item {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	
+	&:first-child,
+	&:last-child {
+		.page-link {
+			border-radius: 50%;
+		}
+	}
+}
+
+// Base styles
+.page-link {
+	display: inline-block;
+	min-width: 42px;
+	height: 42px;
+	line-height: 21px;
+	
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+// Hover & Focus & Active State
+.page-link {
+	&:hover,
+	&:focus,
+	&:active {
+		color: $pagination-hover-color;
+		background-color: $pagination-hover-bg;
+		border-color: $pagination-hover-border-color;
+	}
+}
+
+// Active State
+.page-item.active > .page-link {
+	&,
+	&:hover,
+	&:focus,
+	&:active {
+		color: $pagination-active-color;
+	}
+}
+
+// Disabled State
+.page-item.disabled > .page-link {
+	&,
+	&:hover,
+	&:focus,
+	&:active {
+		color: $pagination-disabled-color;
+	}
+}
+
+.page-item-control {
+	.icon::before {
+		font-family: 'FontAwesome';
+		font-size: 11px;
+		line-height: $pagination-line-height;
+	}
+}
+
+// Prev control
+.page-item-control:first-child {
+	.icon::before {
+		content: '\f053';
+		margin-left: -1px;
+	}
+}
+
+// Next control
+.page-item-control:last-child {
+	.icon::before {
+		content: '\f054';
+		margin-right: -1px;
+	}
+}
+
+
+* + .pagination-outer { margin-top: 35px; }
+
+@include media-breakpoint-up(lg) {
+	* + .pagination-outer { margin-top: 55px; } 
+}
+
+@include media-breakpoint-up(xl) {
+	.pagination-outer{
+		margin-top: 10px;
+	}
+}

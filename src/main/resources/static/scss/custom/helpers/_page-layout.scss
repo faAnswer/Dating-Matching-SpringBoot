@@ -1,0 +1,151 @@
+/** @section Page layout */
+
+// Page
+body {
+	overflow-x: hidden;
+}
+
+.page {
+	position: relative;
+	min-height: 100vh;
+	opacity: 0;
+
+	&.fadeIn { animation-timing-function: ease-out; }
+	&.fadeOut { animation-timing-function: ease-in; }
+
+	[data-x-mode] & {
+		opacity: 1;
+	}
+}
+
+.page-header {
+	.rd-navbar-wrap {
+		position: relative;
+		z-index: $zindex-rd-navbar;
+	}
+}
+
+.page-header-absolute {
+	.rd-navbar-wrap {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		z-index: $zindex-rd-navbar;
+	}
+}
+
+.page-header-1 {
+	position: relative;
+	background-color: $breadcrumb-bg;
+	background-position: center center;
+	background-size: cover;
+	.rd-navbar-classic {
+		position: relative;
+		z-index: $zindex-rd-navbar;
+		background-color: transparent;
+	}
+	
+	.breadcrumbs-custom {
+		&::before {
+			display: none;
+		}
+	}
+}
+
+.page-header-1-figure {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: bottom;
+}
+
+.page-header-1-image {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+// Page Header 2
+.page-header-2 {
+	@include media-breakpoint-up(sm) {
+		padding: 0 15px;
+
+		.rd-navbar-static-linked & .rd-navbar--is-stuck {
+			.rd-navbar-main-outer {
+				padding: 0 15px;
+			}
+		} 
+	}
+	
+	@include media-breakpoint-up(xxl) {
+		padding: 0 60px;
+		.rd-navbar-static-linked & .rd-navbar--is-stuck {
+			.rd-navbar-main-outer {
+				padding: 0 60px;
+			}
+		}
+	}
+}
+
+.rd-navbar-static-linked {
+	.page-header-2 .rd-navbar-creative:not(.rd-navbar--is-stuck) {
+		.rd-navbar-main-outer {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+}
+
+// Page Header 3
+.page-header-3 {
+	.rd-navbar-wrap {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		z-index: $zindex-rd-navbar;
+
+		.rd-navbar-static {
+			.rd-navbar-collapse-toggle-1 {
+				display: none;
+			}
+		}
+
+		.rd-navbar-fixed {
+			.rd-navbar-brand {
+				margin-left: 0;
+			}
+
+			.rd-navbar-collapse-1 {
+				position: fixed;
+				right: 0;
+				top: 56px;
+				font-size: 14px;
+				opacity: 0;
+				visibility: hidden;
+				background: $white;
+				padding: 20px;
+				transition: .3s;
+				z-index: $zindex-rd-navbar;
+
+				&.active {
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+		}
+	}
+}
+
+.rd-navbar-static-linked {
+	.page-header-3 {
+
+	}
+}

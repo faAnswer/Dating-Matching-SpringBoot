@@ -1,0 +1,92 @@
+/** @section Tooltop Custom */
+
+//
+// Base class
+//
+.tooltip {
+	font-size: $font-size-body;
+	line-height: 1.2;
+}
+
+//
+// Tooltip Light
+//
+.tooltip-light {
+	$tooltip-light-size: 8px;
+	.tooltip-inner {
+		padding: 10px 20px;
+		border-radius: 4px;
+		font-size: 13px;
+		line-height: 1;
+		letter-spacing: -.02em;
+    color: $black;
+		background: $white;
+    text-transform: uppercase;
+		box-shadow: 0 1px 7px 0 rgba($black, 0.3);
+	}
+
+	.arrow {
+		width: $tooltip-light-size;
+		height: $tooltip-light-size;
+	}
+
+	&.bs-tooltip-top {
+		padding: $tooltip-light-size 0;
+
+		.arrow {
+			&::before {
+				border-width: $tooltip-light-size $tooltip-light-size 0 $tooltip-light-size;
+				border-top-color: $white;
+			}
+		}
+	}
+
+	&.bs-tooltip-right {
+		padding: 0 $tooltip-light-size;
+
+		.arrow {
+			width: $tooltip-light-size;
+			height: $tooltip-light-size;
+
+			&::before {
+				border-width: ($tooltip-light-size / 2) $tooltip-light-size ($tooltip-light-size / 2) 0;
+				border-right-color: $white;
+			}
+		}
+	}
+
+	&.bs-tooltip-bottom {
+		padding: $tooltip-light-size 0;
+
+		.arrow {
+			&::before {
+				border-width: 0 ($tooltip-light-size / 2) $tooltip-light-size;
+				border-bottom-color: $white;
+			}
+		}
+	}
+
+	&.bs-tooltip-left {
+		padding: 0 $tooltip-light-size;
+
+		.arrow {
+			width: $tooltip-light-size;
+			height: $tooltip-light-size;
+
+			&::before {
+				border-width: ($tooltip-light-size / 2) 0 ($tooltip-light-size / 2) $tooltip-light-size;
+				border-left-color: $white;
+			}
+		}
+	}
+}
+
+@supports (filter: drop-shadow(0 0 0 rgba(black, 0))) {
+	.tooltip-light {
+		filter: drop-shadow(0 1px 3px rgba($black, .3));
+
+		.tooltip-inner {
+			box-shadow: none;
+		}
+	}
+}

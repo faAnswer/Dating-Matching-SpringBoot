@@ -1,0 +1,35 @@
+/** @section Counter */
+
+//
+// Table of Contents
+//
+// Counter Classic
+//
+
+
+//
+// Counter Classic
+//
+.counter-classic {
+
+}
+
+.counter-classic-main {
+  font-size: 30px;
+  color: $primary;
+  font-family: $font-family-sec;
+}
+
+* + .counter-classic-title { margin-top: 0; }
+
+@include media-breakpoint-up(lg) {
+  .counter-classic-main {
+    font-size: 40px;
+  }
+}
+ 
+@include media-breakpoint-up(xl) {
+  .counter-classic-main {
+    font-size: 43px;
+  }
+} 

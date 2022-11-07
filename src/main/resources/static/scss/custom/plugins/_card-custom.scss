@@ -1,0 +1,322 @@
+/** @section Card custom */
+
+// Corporate
+//
+$accordion-corporate-color: $gray-700;
+$accordion-corporate-background: $white;
+$accordion-corporate-border: $gray-300;
+$accordion-corporate-content-color: $body-color;
+$accordion-corporate-arrow-color: $primary;
+$accordion-corporate-arrow-background: $primary;
+$accordion-corporate-header-padding: 27px 82px 27px 32px;
+$accordion-corporate-content-padding: 35px 44px 35px nth($accordion-corporate-header-padding, 4);
+
+// Card groups
+.card-group-custom {
+  margin-bottom: 0;
+
+  .card-body {
+    border: 0;
+  }
+
+  .card + .card {
+    margin-top: 0;
+  }
+}
+
+.card-custom {
+  display: block;
+  margin: 0;
+  background: inherit;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: left;
+
+  a {
+    display: block;
+  }
+
+  // Card heading
+  .card-header {
+    padding: 0;
+    border-bottom: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: transparent;
+  }
+
+  // Card contents
+  .card-body {
+    padding: 0;
+    border: 0;
+  }
+
+  .card-title {
+    margin-bottom: 0;
+  }
+}
+
+//
+// Card Corporate
+//
+.card-corporate {
+  text-align: left;
+
+  .card-title a {
+    position: relative;
+    z-index: 1;
+    padding: $accordion-corporate-header-padding;
+    font-weight: $headings-font-weight;
+    font-size: 15px;
+    line-height: 1.45;
+    letter-spacing: 0;
+    color: $accordion-corporate-color;
+    background: $gray-100;
+    border: 1px solid $accordion-corporate-border;
+
+    // Open state
+    .card-arrow {
+      &:after {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    // Collapsed state
+    &.collapsed {
+      background-color: transparent;
+      border-color: $accordion-corporate-border transparent transparent transparent;
+
+      .card-arrow {
+        &::before {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        &:after {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  &:last-child {
+    .card-title a {
+      border-bottom-color: $accordion-corporate-border;
+    }
+
+    .card-body {
+      border-bottom: 1px solid $accordion-corporate-border;
+    }
+  }
+
+  // Card arrow
+  .card-arrow {
+    position: absolute;
+    top: 0;
+    bottom: -1px;
+    right: -1px;
+    z-index: 2;
+    width: 70px;
+    transition: .33s all ease;
+    color: $accordion-corporate-arrow-color;
+
+    &::before,
+    &::after {
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      font-family: 'Material Design Icons';
+      font-size: 23px;
+    }
+
+    &::before {
+      content: '\f465';
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &::after {
+      content: '\f504';
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .card-body {
+    position: relative;
+    z-index: 1;
+    padding: $accordion-corporate-content-padding;
+  }
+}
+
+* + .card-group-corporate { margin-top: 40px; }
+
+.card-group-corporate .card + .card { margin-top: 0; }
+
+// Media queries
+@include media-breakpoint-down(lg) {
+  .card-corporate {
+    .card-title a,
+    .card-body {
+      padding-left: 25px;
+    }
+
+    .card-body {
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .card-corporate {
+    .card-title a {
+      font-size: 18px;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  * + .card-group-corporate { margin-top: 60px; }
+}
+
+//
+// Card Timeline
+//
+.card-timeline {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+  padding-left: 45px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 13px;
+    width: 1px;
+    bottom: -40px;
+    background: rgba($gray-300, .75);
+  }
+
+  .card-title {
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+  }
+
+  .card-link {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 500;
+
+    &,
+    &:active,
+    &:focus,
+    &:hover {
+      color: $black;
+    }
+
+    &.collapsed {
+      .card-arrow::after {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $white;
+    border: 1px solid rgba($gray-300, .5);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: $primary;
+      opacity: 1;
+      visibility: visible;
+      transition: .22s;
+    }
+  }
+
+  .card-body {
+    position: relative;
+    overflow: hidden;
+    padding-top: 20px;
+  }
+
+  * + .row { margin-top: 20px; }
+
+  &:last-child {
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.card-group-timeline {
+  .card-timeline + .card-timeline { margin-top: 40px; }
+}
+
+@include media-breakpoint-up(sm) {
+  .card-timeline {
+    padding-left: 60px;
+    &::before {
+      top: 31px;
+      left: 15px;
+    }
+    .card-arrow {
+      width: 32px;
+      height: 32px;
+    }
+
+    * + .row { margin-top: 30px; }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .card-timeline {
+    &::before {
+      bottom: -60px;
+    }
+
+    .card-link {
+      font-size: 18px;
+    }
+
+    .card-body {
+      padding-top: 35px;
+    }
+  }
+
+  .card-group-timeline {
+    .card-timeline + .card-timeline { margin-top: 60px; }
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .card-timeline {
+    .card-link {
+      font-size: 24px;
+    }
+  }
+}
+

@@ -1,0 +1,279 @@
+/** @section Offsets */
+
+// Elements offset
+* + p { margin-top: 14px; }
+
+// Headings
+* + h2 { margin-top: 12px; }
+* + h3 { margin-top: 12px; }
+* + h4 { margin-top: 12px; }
+* + h5 { margin-top: 10px; }
+
+// Headings + Paragraph
+
+// Paragraph + Headings
+
+// Tags + Tags
+p + p { margin-top: 12px; }
+h5 + h5 { margin-top: 10px; }
+img + p { margin-top: 15px; }
+
+// Classes
+* + .row { margin-top: 30px; }
+
+* + .big { margin-top: 20px; }
+
+* + .list-md { margin-top: 20px; }
+
+* + .text-block { margin-top: 30px; }
+
+* + .btn { margin-top: 25px; }
+
+// Classes + Tags
+.row + h3,
+.row + .heading-3 {
+  margin-top: 80px;
+}
+
+// Classes + Classes
+.container + .container { margin-top: 35px; }
+
+.row + .row { margin-top: 35px; }
+
+// Media offsets
+@include media-breakpoint-up(lg) {
+  * + h2 { margin-top: 20px; }
+  * + h5 { margin-top: 20px; }
+  * + p { margin-top: 20px; }
+  h2 + p { margin-top: 11px; }
+  * + .row { margin-top: 45px; }
+  * + .big { margin-top: 26px; }
+  
+  h5 + h5 { margin-top: 14px; }
+
+  .heading-7 + .list-md { margin-top: 40px; }
+  .heading-7 + .list-palette { margin-top: 40px; }
+}
+
+@include media-breakpoint-up(xl) {
+  * + h5 { margin-top: 26px; }
+  * + .rd-form { margin-top: 30px; }
+
+  p + p { margin-top: 20px; }
+  
+  .container + .container { margin-top: 60px; }
+  .row + .row { margin-top: 80px; }
+}
+
+// Range spacing
+.row-0 {
+  @include grid-offset(0px);
+}
+
+.row-6 {
+  @include grid-offset(6px);
+}
+
+.row-10 {
+  @include grid-offset(10px);
+}
+
+.row-13 {
+  @include grid-offset(13px);
+}
+
+.row-20 {
+  @include grid-offset(20px);
+}
+
+.row-30 {
+  @include grid-offset(30px);
+}
+
+.row-40 {
+  @include grid-offset(40px);
+}
+
+.row-50 {
+  @include grid-offset(50px);
+}
+
+@include media-breakpoint-up(md) {
+  .row-md-40 {
+    @include grid-offset(40px);
+  } 
+  .row-md-50 {
+    @include grid-offset(50px);
+  } 
+}
+
+@include media-breakpoint-up(lg) {
+  .row-md-30 {
+    @include grid-offset(30px);
+  }
+  .row-md-50 {
+    @include grid-offset(50px);
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .row-xl-40 {
+    @include grid-offset(40px);
+  }
+  .row-xl-50 {
+    @include grid-offset(50px);
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .row-xxl-80 {
+    @include grid-offset(80px);
+  }  
+} 
+
+// Custom offset
+$mt-list: 0, 10, 15, 20, 30, 40;
+$mt-md-list: 20, 30, 35, 45, 60;
+$mt-lg-list: 40, 50, 60, 80;
+$mt-xl-list: 30, 40, 50, 55, 60, 70, 80;
+$mt-xxl-list: 50, 60, 70, 75, 85;
+
+.page { 
+  @each $mt in $mt-list {
+    * + .mt-#{$mt} {
+      margin-top: $mt + px;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    @each $mt in $mt-md-list {
+      * + .mt-md-#{$mt} {
+        margin-top: $mt + px;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    @each $mt in $mt-lg-list {
+      * + .mt-lg-#{$mt} {
+        margin-top: $mt + px;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    @each $mt in $mt-xl-list {
+      * + .mt-xl-#{$mt} {
+        margin-top: $mt + px;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(xxl) {
+    @each $mt in $mt-xxl-list {
+      * + .mt-xxl-#{$mt} {
+        margin-top: $mt + px;
+      } 
+    }
+  }
+}
+
+
+// Custom Insets
+.inset-1 {
+  @include media-breakpoint-up(xl) {
+    padding-right: 50px;
+  }
+}
+
+.inset-2 {
+  @include media-breakpoint-up(xl) {
+    padding-left: 50px;
+  }
+}
+
+.inset-3 {
+  @include media-breakpoint-up(lg) {
+    padding-top: 12px; 
+  }
+}
+
+.inset-4 {
+  @include media-breakpoint-up(lg) {
+    padding-right: 20px; 
+  }
+}
+
+$grid-gutter-width-narrow: 10px;
+$grid-gutter-width-narrow-40: 40px;
+$grid-gutter-width-narrow-20: 20px;
+
+// Row Narrow
+.row-narrow {
+  margin-right: ($grid-gutter-width-narrow / -2);
+  margin-left: ($grid-gutter-width-narrow / -2);
+
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: ($grid-gutter-width-narrow / 2);
+    padding-left: ($grid-gutter-width-narrow / 2);
+  }
+
+}
+
+// Row Narrow
+.row-narrow-40 {
+  margin-right: ($grid-gutter-width-narrow-40 / -2);
+  margin-left: ($grid-gutter-width-narrow-40 / -2);
+
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: ($grid-gutter-width-narrow-40 / 2);
+    padding-left: ($grid-gutter-width-narrow-40 / 2);
+  }
+
+}
+
+// Row Narrow
+@include media-breakpoint-up(xl) {
+  .row-narrow-20 {
+    margin-right: -15px;
+    margin-left: -15px;
+
+
+    > .col,
+    > [class*="col-"] {
+      padding-right: ($grid-gutter-width-narrow-20 / 2);
+      padding-left: ($grid-gutter-width-narrow-20 / 2);
+    }
+
+  }
+}
+.offset-top-5{
+  margin-top: 5px;
+}
+
+.offset-xl-t-35{
+  margin-top: 20px;
+  @include media-breakpoint-up(xl) {
+    margin-top: 35px;
+  }
+}
+
+
+.offset-xl-t-40{
+  margin-top: 20px;
+  @include media-breakpoint-up(xl) {
+    margin-top: 40px;
+  }
+}
+
+.offset-xl-t-45{
+  margin-top: 20px;
+  @include media-breakpoint-up(xl) {
+    margin-top: 45px;
+  }
+}
+

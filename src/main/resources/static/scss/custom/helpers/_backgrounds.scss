@@ -1,0 +1,364 @@
+/** @section Backgrounds */
+
+.context-dark {
+	@extend %context-dark;
+}
+
+%context-dark {
+	// Logo
+	.brand {
+		.brand-logo-dark {
+			display: none;
+		}
+
+		.brand-logo-light {
+			display: block;
+		}
+	}
+}
+
+.context-light {
+	#{headings()} {
+		color: $headings-color;	
+	}
+	
+	// Logo
+	.brand {
+		.brand-logo-dark {
+			display: block;
+		}
+
+		.brand-logo-light {
+			display: none;
+		}
+	}
+}
+
+/*
+* Light Backgrounds
+*/
+.bg-default {
+	@include bg-behaviour($body-bg);
+}
+
+.bg-gray-100 {
+	@include bg-behaviour($gray-100);
+}
+
+.bg-gray-lighten {
+	@include bg-behaviour($gray-lighten);
+}
+
+
+
+.bg-color-gray-100 {
+	background: $gray-100;
+}
+
+.bg-gray-300 {
+	@include bg-behaviour($gray-100);
+}
+
+.bg-gray-500 {
+	@include bg-behaviour($gray-500);
+}
+
+/*
+* Dark Backgrounds
+*/
+.bg-gray-800 {
+	@include bg-behaviour($gray-800);
+}
+
+.bg-color-gray-800 {
+	background: $gray-800;
+}
+
+.bg-black {
+	@include bg-behaviour($black);
+}
+
+/*
+* Accent Backgrounds
+*/
+.bg-primary {
+	@include bg-behaviour($primary);
+}
+
+.bg-secondary {
+	@include bg-behaviour($secondary);
+}
+
+/*
+* Background Image
+*/
+.bg-image {
+	background-size: cover;
+	background-position: center center;
+}
+
+.bg-image-2 {
+	position: relative;
+	z-index: 0;
+	overflow: hidden;
+}
+
+.bg-image-2-item {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	animation: bgHeart 5s infinite;
+}
+
+@keyframes bgHeart {
+	0% {
+		transform: scale( 1 );
+	}
+	10% {
+		transform: scale( 1.1 );
+	}
+	20% {
+		transform: scale( 1 );
+	}
+	30% {
+		transform: scale( 1.1 );
+	}
+	40% {
+		transform: scale( 1 );
+		opacity: 1;
+	}
+	50% {
+		transform: scale( 3 );
+		opacity: 0;
+	}
+	90% {
+		transform: scale( 1.1 );
+		opacity: 0;
+	}
+	100% {
+		transform: scale( 1 );
+		opacity: 1;
+	}
+}
+
+@include media-breakpoint-up( lg ) {
+	.bg-image-2-item {
+		background-size: contain;
+	}
+}
+
+// Desktop only
+//
+html:not(.tablet):not(.mobile) {
+	.bg-fixed {
+		@include media-breakpoint-up(lg) {
+			background-attachment: fixed;
+		}
+	}
+}
+
+// Background mask
+.bg-mask {
+	position: relative;
+	z-index: 0;
+
+	&::before {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -1;
+		content: '';
+		background-color: rgba( $white, .6 );
+	}
+
+	@include media-breakpoint-up( md ) {
+		&::before {
+			display: none;
+		}
+	}
+}
+
+// Background Overlays
+[class*='bg-overlay'] {
+	position: relative;
+	
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+	
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+.bg-overlay-1 {
+	&::after {
+		opacity: .6;
+		background: linear-gradient(to top, rgba($black, 1), rgba($black, .50));
+	}
+}
+
+.bg-overlay-2 {
+	&::after {
+		background: linear-gradient(to bottom, rgba($black, .1) 0%, rgba($black, .21));
+	}
+}
+
+.bg-overlay-3 {
+	&::after {
+		background: linear-gradient(to bottom, rgba($black, 0) 0%, rgba($black, .2));
+	}
+}
+
+.bg-grad-1{
+	background: linear-gradient(307.23deg, #531FD5 0%, #9B59D8 48.89%, #E495DC 98.62%);
+}
+.bg-img-5{
+	background: url('../images/coming-soon.jpg')no-repeat center;
+	background-size: cover;
+	&:before{
+		display: none;
+	}
+}
+
+.cta-figure-wrap{
+	position: absolute;
+	left: 0;
+	height: 100%;
+	top:0;
+	@include media-breakpoint-up(md) {
+		width: 52vw;
+	}
+	@include media-breakpoint-up(lg) {
+		width: 66vw;
+	}
+	@include media-breakpoint-up(xl) {
+		width: 52vw;
+	}
+	img{
+		height: 100%;
+		opacity: .3;
+		@include media-breakpoint-up(lg) {
+			opacity: 1;
+		}
+	}
+}
+
+.bg-img-2{
+	background: url('../images/cta-1-1920x588.jpg') no-repeat center;
+	background-size: cover;
+	position: relative;
+  > * {
+    z-index: 2;
+    position: relative;
+  }
+	&:before{
+		content: '';
+		position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background: rgba($black,.6);
+    opacity: 1;
+    pointer-events: none;
+    @include media-breakpoint-up(lg) {
+      opacity: 0;
+    }
+	}
+}
+
+// BG effect
+.bg-effect {
+	position: relative;
+	z-index: 0;
+}
+
+.bg-effect-inner {
+	position: absolute;
+	left: 0;
+	top: 40%;
+	right: 0;
+	bottom: 0;
+	pointer-events: none;
+	z-index: -1;
+	overflow: hidden;
+}
+
+.bg-effect-item {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background-size: cover;
+	animation: bg-effect 20s infinite linear;
+
+	&:nth-child(1) {
+		animation-direction: reverse;
+	}
+
+	&:nth-child(2) {
+		animation-duration: 35s;
+	}
+}
+
+@keyframes bg-effect {
+	0% { background-position: 0 0 }
+	100% { background-position: 100vw 0  }
+}
+
+@keyframes bg-effect-1 {
+	0% { background-position: 0 0 }
+	100% { background-position: 100vw 0  }
+}
+
+.bg-custom {
+	position: relative;
+	z-index: 0;
+
+	.bg-custom-inner {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		z-index: -1;
+		background: linear-gradient( 284.38deg, #ff9a9e 0%, #fad0c4 98.62% );
+	}
+}
+
+.bg-top-image {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 34%;
+	background-position: top center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	pointer-events: none;
+}
+
+// Card backgrounds
+.bg-card-02 {
+	background-color: #e162cd;
+}
+.bg-card-05 {
+	background-color: #e50917;
+}
+

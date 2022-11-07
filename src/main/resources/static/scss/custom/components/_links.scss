@@ -1,0 +1,258 @@
+/** @section Links */
+
+// Standard link style
+a {
+  transition: $transition-base;
+
+  &,
+  &:focus,
+  &:active,
+  &:hover {
+    text-decoration: $link-decoration;
+  }
+
+  @include link($link-color, $link-hover-color);
+
+  &[href*='tel'],
+  &[href*='callto'],
+  &[href*='mailto'] {
+    white-space: nowrap;
+  }
+}
+
+.link-hover {
+  color: $link-hover-color;
+}
+
+.link-press {
+  color: $link-press-color;
+}
+
+.link-black {
+  &,
+  &:active,
+  &:focus {
+  	color: $black;
+  }
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.privacy-link {
+  display: inline-block;
+  
+  &:hover {
+    color: $black;
+  }
+}
+
+* + .privacy-link {
+  margin-top: 35px;
+}
+
+//
+// Link 1
+//
+.link-1 {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  width: 47px;
+  height: 47px;
+  font-size: 22px;
+  line-height: 47px;
+  border: 1px solid $gray-300;
+  border-radius: 50%;
+  color: $black;
+  
+  &::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-sizing: content-box;
+    padding: 2px;
+    transition: transform 0.2s, opacity 0.3s;
+    transform: scale(1.2);
+    opacity: 0;
+    background: $primary;
+  }
+  
+ &.link-1-social {
+   &[class*='facebook'] {
+     color: $facebook;
+     &::after {
+       background: $facebook;
+     }
+   }
+
+   &[class*='google'] {
+     color: $google;
+     &::after {
+       background: $google;
+     }
+   }
+
+   &[class*='twitter'] {
+     color: $twitter;
+     &::after {
+       background: $twitter;
+     }
+   }
+
+   &[class*='instagram'] {
+     color: $instagram;
+     &::after {
+       background: $instagram;
+     }
+   }
+
+   &[class*='facebook'] {
+     color: $facebook;
+     &::after {
+       background: $facebook;
+     }
+   }
+
+   &[class*='behance'] {
+     color: $behance;
+     &::after {
+       background: $behance;
+     }
+   }
+
+   &[class*='youtube'] {
+     color: $youtube;
+     &::after {
+       background: $youtube;
+     }
+   }
+   
+   &:hover {
+     color: $white;
+   }
+ }
+
+  &:hover {
+    color: $white;
+    background-color: transparent;
+    
+    &::after {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.context-dark {
+  .link-1 {
+    color: $white;
+    border-color: $white; 
+
+    &::after { 
+      background: $white;
+    }
+    
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+//
+// Link Image
+// 
+.link-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: .22s;
+  text-align: center;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    background: $white;
+    transition: .22s;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.9, .9);
+  }
+  
+  img {
+    display: block;
+    flex-shrink: 0;
+    transform: translate3d(0, 0, 0);
+    opacity: .5;
+    transition: .22s;
+  }
+  
+  &:hover {
+    &::before {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1, 1);
+    }
+    img {
+      opacity: 1;
+    }
+  }
+}
+
+//
+// Link 2
+//
+.link-2 {
+  font-size: 22px;
+  line-height: 1;
+  color: $gray-500;
+  
+  &:hover {
+    color: $primary;
+  }
+  
+  &[class*='instagram'] {
+    &:hover {
+      color: $instagram;
+    } 
+  }
+  
+  &[class*='facebook'] {
+    &:hover {
+      color: $facebook;
+    } 
+  }
+  
+  &[class*='youtube'] {
+    &:hover {
+      color: $youtube;
+    } 
+  }
+}
+
+.nick{
+  letter-spacing: -.01em;
+  font-size: 19px;
+  display: inline-block;
+  @include link($gray-600,$primary)
+}
+
+

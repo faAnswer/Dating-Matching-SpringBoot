@@ -1,0 +1,19 @@
+/** @section M Parallax */
+.m-parallax {
+	position: relative;
+	overflow: hidden;
+}
+
+.m-parallax-image {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-position: center center;
+	background-size: cover;
+}
+
+.m-parallax-content {
+	position: relative;
+}
