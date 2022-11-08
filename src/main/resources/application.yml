@@ -1,0 +1,6 @@
+#spring:
+#  mvc:
+#    static-path-pattern: /image/**
+#  web:
+#    resources:
+#      static-locations: classpath:/images/
