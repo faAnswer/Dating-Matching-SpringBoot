@@ -16,9 +16,6 @@ public class UserEntity {
     @Id
     private int uid;
 
-    @Column(name = "salt")
-    private String salt;
-
     @Column(name = "shapassword")
     private String shapassword;
 
