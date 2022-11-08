@@ -11,4 +11,5 @@ public class IndexController {
 //    @GetMapping("/nohorny/index.html") public String f2(){return "nohorny/index.html";}
 //    @GetMapping("/nohorny/*") public String f3(){return "nohorny/index.html";}
 //    @GetMapping("/loginpage.css") public String f1(){return "loginpage.css";}
+
 }
