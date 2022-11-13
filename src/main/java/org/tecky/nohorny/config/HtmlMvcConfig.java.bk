@@ -29,15 +29,15 @@ public class HtmlMvcConfig implements WebMvcConfigurer {
         return yourTemplateResolver;
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("/nohorny/css/**").addResourceLocations("classpath:/static/nohorny/css");
 //        registry.addResourceHandler("/nohorny/images/**").addResourceLocations("classpath:/static/nohorny/images");
 //        registry.addResourceHandler("/nohorny/js/**").addResourceLocations("classpath:/static/nohorny/js");
 //        registry.addResourceHandler("/nohorny/**").addResourceLocations("classpath:/nohorny/");
-
-        WebMvcConfigurer.super.addResourceHandlers(registry);
-    }
+//
+//        WebMvcConfigurer.super.addResourceHandlers(registry);
+//    }
 
 
 

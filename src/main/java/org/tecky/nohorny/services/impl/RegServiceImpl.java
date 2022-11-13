@@ -5,10 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
-import org.tecky.nohorny.mapper.IUserEntityRespostity;
+import org.tecky.nohorny.mapper.UserEntityRespostity;
 import org.tecky.nohorny.services.intf.IRegService;
 
 @Service
@@ -18,21 +17,21 @@ public class RegServiceImpl implements IRegService{
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    IUserEntityRespostity iUserEntityRespostity;
+    UserEntityRespostity userEntityRespostity;
 
     @Override
     public ResponseEntity<JSONResponse<Object>> regNewUser(UserEntity userEntity) {
 
         UserEntity checkUserEntity;
 
-        checkUserEntity = iUserEntityRespostity.findByUsername(userEntity.getUsername());
+        checkUserEntity = userEntityRespostity.findByUsername(userEntity.getUsername());
 
         if(checkUserEntity != null) {
 
             return JSONResponse.fail("Username is already in use", HttpStatus.CONFLICT);
         }
 
-        checkUserEntity = iUserEntityRespostity.findByEmail(userEntity.getEmail());
+        checkUserEntity = userEntityRespostity.findByEmail(userEntity.getEmail());
 
         if(checkUserEntity != null) {
 
@@ -41,7 +40,7 @@ public class RegServiceImpl implements IRegService{
 
         userEntity.setShapassword(passwordEncoder.encode(userEntity.getShapassword()));
 
-        iUserEntityRespostity.save(userEntity);
+        userEntityRespostity.save(userEntity);
 
         return JSONResponse.ok(userEntity);
     }

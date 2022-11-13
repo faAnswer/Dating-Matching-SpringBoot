@@ -14,12 +14,14 @@ import javax.persistence.Table;
 public class PmEntity {
 
     @Id
-    private int pm_id;
+    private int pmid;
 
-    @Column(name = "to_uid")
-    private int to_uid;
+    @Column(name = "touid")
+    private int touid;
 
-    @Column(name = "from_uid")
-    private int from_uid;
+    @Column(name = "fromuid")
+    private int fromuid;
 
+    @Column(name = "uuid")
+    private String uuid;
 }

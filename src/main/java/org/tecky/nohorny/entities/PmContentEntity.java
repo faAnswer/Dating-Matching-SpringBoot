@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class PmContentEntity {
 
     @Id
-    private int pm_id;
+    private int pmid;
 
     @Column(name = "content")
     private String content;

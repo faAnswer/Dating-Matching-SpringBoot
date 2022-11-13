@@ -2,10 +2,12 @@ package org.tecky.nohorny.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -14,24 +16,14 @@ import javax.persistence.Table;
 public class PmStatusEntity {
 
     @Id
-    private int pm_id;
+    private int pmid;
 
-    @Column(name = "send_time")
-    private String send_time;
+    @Column(name = "read")
+    private int read;
 
-    @Column(name = "from_alive")
-    private int from_alive;
+    @Column(name = "sendtime")
+    private Timestamp sendtime;
 
-    @Column(name = "read_time")
-    private String read_time;
-
-    @Column(name = "to_read")
-    private int to_read;
-
-    @Column(name = "to_alive")
-    private int to_alive;
-
-    @Column(name = "replyto_id")
-    private int replyto_id;
-
+    @Column(name = "readtime")
+    private Timestamp readtime;
 }

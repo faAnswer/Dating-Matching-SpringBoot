@@ -19,14 +19,14 @@ public class UserInfoEntity {
     @Column(name = "gender")
     private int gender;
 
-    @Column(name = "pic_id")
-    private String pic_id;
+    @Column(name = "picid")
+    private String picId;
 
     @Column(name = "sexal")
     private int sexal;
 
-    @Column(name = "district_id")
-    private int district_id;
+    @Column(name = "districtid")
+    private int districtId;
 
     @Column(name = "age")
     private int age;

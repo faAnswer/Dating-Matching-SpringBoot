@@ -16,7 +16,7 @@ public class UserGalleryEntity {
     @Id
     private int uid;
 
-    @Column(name = "pic_id")
-    private String pic_id;
+    @Column(name = "picid")
+    private String picid;
 
 }
