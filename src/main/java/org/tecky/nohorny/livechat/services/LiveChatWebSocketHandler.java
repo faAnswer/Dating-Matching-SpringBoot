@@ -55,8 +55,7 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
         log.info("Message to : " + toUser);
         log.info("Message : " + msgContent);
 
-        iLiveChatService.sendMessage(fromUser, toUser, msgContent);
-        sendMessageToUser(toUser, fromUser + ":"+ msgContent);
+        sendMessageToUser(fromUser, toUser, msgContent);
     }
 
     @Override
@@ -89,28 +88,25 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
         return false;
     }
 
-    public void sendMessageToUser(String userId, String contents) {
+    public void sendMessageToUser(String fromUser, String toUser, String contents) {
 
-        WebSocketSession session = liveChatMap.get(userId);
+        WebSocketSession session = liveChatMap.get(toUser);
+
+        String msg = fromUser + ":" + contents;
 
         if (session != null && session.isOpen()) {
             try {
-                TextMessage message = new TextMessage(contents);
+                TextMessage message = new TextMessage(msg);
                 session.sendMessage(message);
+                iLiveChatService.sendOnlineMessage(fromUser, toUser, contents);
 
             } catch (IOException e) {
+
                 e.printStackTrace();
             }
-        }
-    }
+        } else {
 
-    public void sendMessageToAllUsers(String contents) {
-
-        Set<String> userIds = liveChatMap.keySet();
-
-        for (String userId : userIds) {
-
-            this.sendMessageToUser(userId, contents);
+            iLiveChatService.sendOfflineMessage(fromUser, toUser, contents);
         }
     }
 }
