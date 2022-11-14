@@ -23,7 +23,6 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
     @Autowired
     ILiveChatService iLiveChatService;
 
-
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
@@ -50,6 +49,7 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
         log.info("Message to : " + toUser);
         log.info("Message : " + msgContent);
 
+        iLiveChatService.sendMessage(fromUser, toUser, msgContent);
         sendMessageToUser(toUser, fromUser + ":"+ msgContent);
     }
 

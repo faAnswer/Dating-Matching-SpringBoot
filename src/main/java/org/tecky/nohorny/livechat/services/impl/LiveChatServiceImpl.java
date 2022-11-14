@@ -6,9 +6,7 @@ import org.tecky.nohorny.entities.PmContentEntity;
 import org.tecky.nohorny.entities.PmEntity;
 import org.tecky.nohorny.entities.PmStatusEntity;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
-import org.tecky.nohorny.mapper.PmContentEntityRepository;
-import org.tecky.nohorny.mapper.PmEntityRepository;
-import org.tecky.nohorny.mapper.PmStatusEntityRepository;
+import org.tecky.nohorny.mapper.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -26,12 +24,19 @@ public class LiveChatServiceImpl implements ILiveChatService {
     @Autowired
     PmStatusEntityRepository pmStatusEntityRepository;
 
+    @Autowired
+    UserEntityRespostity userEntityRespostity;
+
+
     @Override
-    public void sendMessage(Integer fromUid, Integer toUid, String message) {
+    public void sendMessage(String fromUser, String toUser, String message) {
 
         // Shall put to Interceptor?
         PmEntity pmEntity = new PmEntity();
         String uuid = UUID.randomUUID().toString();
+
+        int fromUid = userEntityRespostity.findByUsername(fromUser).getUid();
+        int toUid = userEntityRespostity.findByUsername(toUser).getUid();
 
         pmEntity.setFromuid(fromUid);
         pmEntity.setTouid(toUid);
