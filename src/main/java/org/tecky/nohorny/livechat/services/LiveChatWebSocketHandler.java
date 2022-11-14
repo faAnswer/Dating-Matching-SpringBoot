@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
@@ -34,35 +36,31 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 
-        String fromName = session.getPrincipal().getName();
+        String fromUser = session.getPrincipal().getName();
 
         String msg = message.getPayload().toString();
 
-        Pattern pattern = Pattern.compile(/(.*):(.*)/g);
+        Pattern pattern = Pattern.compile("(?=<toUser>.*):(?=<msgContent>.*)");
         Matcher matcher = pattern.matcher(msg);
 
-        String[] msgs = msg.split(":");
+        String toUser = matcher.group("toUser");
+        String msgContent = matcher.group("msgContent");
 
+        log.info("Message from : " + fromUser);
+        log.info("Message to : " + toUser);
+        log.info("Message : " + msgContent);
 
-
-
-        log.info("Get Message from " + fromName);
-
-
-
-        log.info("Message : " + msg);
-
-        sendMessageToAllUsers(fromName + ":" + msg);
+        sendMessageToUser(toUser, fromUser + ":"+ msgContent);
     }
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 
-        log.info("Connect Error : " + session.getId());
+        log.info("Connect Error : " + session.getPrincipal().getName());
 
         if (!session.isOpen()) {
 
-            liveChatMap.remove(session.getId());
+            liveChatMap.remove(session.getPrincipal().getName());
 
             session.close();
         }
@@ -71,11 +69,11 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
 
-        log.info("Connect Closed : " + session.getId());
+        log.info("Connect Closed : " + session.getPrincipal().getName());
 
         if(!session.isOpen()){
 
-            liveChatMap.remove(session.getId());
+            liveChatMap.remove(session.getPrincipal().getName());
             log.info("Current Users："+ liveChatMap.size());
         }
     }
