@@ -32,6 +32,7 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
 
     }
 
+    private final Pattern pattern = Pattern.compile("(?<toUser>.*):(?<msgContent>.*)");
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 
@@ -39,11 +40,16 @@ public class LiveChatWebSocketHandler implements WebSocketHandler {
 
         String msg = message.getPayload().toString();
 
-        Pattern pattern = Pattern.compile("(?=<toUser>.*):(?=<msgContent>.*)");
-        Matcher matcher = pattern.matcher(msg);
+        Matcher matcher = this.pattern.matcher(msg);
 
-        String toUser = matcher.group("toUser");
-        String msgContent = matcher.group("msgContent");
+        String toUser = "";
+        String msgContent = "";
+
+        if(matcher.matches()){
+
+            toUser = matcher.group("toUser");
+            msgContent = matcher.group("msgContent");
+        }
 
         log.info("Message from : " + fromUser);
         log.info("Message to : " + toUser);
