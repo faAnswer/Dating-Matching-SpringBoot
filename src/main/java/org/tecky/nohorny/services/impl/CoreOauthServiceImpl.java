@@ -53,10 +53,5 @@ public class CoreOauthServiceImpl implements ICoreOauthService {
 
             return restTemplate.postForEntity("http://47.92.137.0:9999/api/user/login", request, String.class);
         }
-
-
-
-
-
     }
 }

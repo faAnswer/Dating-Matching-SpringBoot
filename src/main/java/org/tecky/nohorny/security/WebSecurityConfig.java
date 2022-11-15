@@ -61,15 +61,23 @@ public class WebSecurityConfig {
                 .csrf()
                     .disable()
                 .authorizeRequests()
+                    .antMatchers("/chatroom").authenticated()
+                    .antMatchers("/chatroom.html").authenticated()
+
                     .antMatchers("/nohorny/**").permitAll()
                     .antMatchers("/hello").permitAll()
                     .antMatchers("/api/user/register").permitAll()
                     .antMatchers("/api/user/login").permitAll()
 
                     .antMatchers("/").permitAll()
+                    .antMatchers("/index").permitAll()
+                    .antMatchers("/*.css").permitAll()
+                    .antMatchers("/**/*.css").permitAll()
+                    .antMatchers("/*.js").permitAll()
+                    .antMatchers("/**/*.js").permitAll()
                     .antMatchers("/index.html").permitAll()
                     .antMatchers("/login.html").permitAll()
-                    .anyRequest().authenticated();
+                    .anyRequest().permitAll();
 
         return http.build();
     }
