@@ -1,12 +1,29 @@
 .loginpage{
-    margin: auto;
-
+    margig;
+    background-color: rgba(30, 49, 99, 0.5);
     max-width: 40ch;
+    padding: 3rem;
 
 }
 
-.header{
-    background-color:none;
-    font-size:50px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+#logo{
+    max-width: 6em;
 }
+
+.logotext{
+    font-size: 3em; ;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* body{
+   
+}   */
+
+.container{
+    background-position: center;
+    background-image:url(/images/wallpaper3.jpg);
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+}
+
+

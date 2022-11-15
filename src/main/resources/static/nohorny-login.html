@@ -21,15 +21,41 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/login.css" />
+
     <title>Nohorny Login Page</title>
   </head>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .coresso {
+      border-color: rgb(146, 184, 230);
+      background-color: linear-gradient(
+        70deg,
+        #cff5e7,
+        #a0e4cb,
+        #59c1bd,
+        #0d4c92
+      );
+      padding: 3rem;
+      border-style: outset;
+    }
+  </style>
   <body>
     <div class="container">
-      <header class="header">Nohorny matching</header>
-      <a class="btn btn-primary" id="loginBtn" href="core-login.html?"
-        >Login via Dating Core SSO</a
-      >
+      <div class="border">
+        <div class="coresso">
+          <header class="header">Nohorny matching</header>
+          <a class="btn btn-primary" id="loginBtn" href="core-login.html?"
+            >Login via Dating Core SSO</a
+          >
+        </div>
+      </div>
     </div>
     <script>
       console.log("making login link...");

@@ -12,31 +12,27 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="common.css" />
-    <link rel="stylesheet" href="datingweb.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css"
+    />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/datingweb.css" />
+
     <title>dating web</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container bgcolor">
       <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
       >
-        <a
-          href="/"
-          class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
+        <ul
+          class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
+          id="headbar"
         >
-          <svg
-            class="bi me-2"
-            width="40"
-            height="32"
-            role="img"
-            aria-label="Bootstrap"
-          >
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-        </a>
-
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <div>
+            <img src="logo.png" alt="logo" srcset="" id="logo" />Nohorny
+          </div>
           <li><a href="" class="container-item">Home</a></li>
           <li>
             <a href="profilesetting.html" class="container-item"
@@ -47,23 +43,31 @@
         </ul>
       </header>
     </div>
-    <div class="container">
+    <div class="container" id="background-container">
       <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
         <div class="col">
           <div class="containercontroller">
             <form class="form-container" action="matching-result.html">
               <div class="gender-select">
                 <label for="gender">I am a:</label>
-                <select name="gender" id="gender">
+                <select
+                  name="gender"
+                  id="gender"
+                  class="form-control"
+                  data-role="select"
+                >
                   <option value="M">Man</option>
                   <option value="F">Women</option>
                 </select>
               </div>
               <div class="target-select">
                 <label for="LookGender">Looking for:</label>
-                <select name="LookGender" id="gender">
+                <select
+                  name="LookGender"
+                  id="gender"
+                  class="form-control"
+                  data-role="select"
+                >
                   <option value="M">Man</option>
                   <option value="F">Women</option>
                 </select>
@@ -72,14 +76,25 @@
                 <label for="Age">Age:</label>
 
                 <div class="AgeSelection">
-                  <select name="ageBottom" id="gender">
+                  <select
+                    name="ageBottom"
+                    id="gender"
+                    class="form-control"
+                    data-role="select"
+                  >
                     <option value="19">19</option>
                     <option value="20">20</option>
                     <option value="21">21</option>
                     <option value="22">22</option>
-                    <option value="23">23</option></select
-                  >-
-                  <select name="AgeTop" id="gender">
+                    <option value="23">23</option>
+                  </select>
+                  -
+                  <select
+                    name="AgeTop"
+                    id="gender"
+                    class="form-control"
+                    data-role="select"
+                  >
                     <option value="31">31</option>
                     <option value="32">32</option>
                     <option value="33">33</option>
@@ -89,7 +104,12 @@
               </div>
               <div class="district-select">
                 <label for="district">district:</label>
-                <select name="district" id="district">
+                <select
+                  name="district"
+                  id="district"
+                  class="form-control"
+                  data-role="select"
+                >
                   <option value="hk">HongKong Island</option>
                   <option value="kln">Kowloon</option>
                   <option value="nt">New Territories</option>
@@ -101,9 +121,12 @@
             </form>
           </div>
         </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <!-- <select data-role="select"></select> -->
       </div>
     </div>
-
+    <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
     <!-- <input type="submit" value="Submit"> -->
   </body>
 </html>

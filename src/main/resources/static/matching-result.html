@@ -11,7 +11,7 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="/css/common.css" />
     <style>
       .photo-grid {
         display: flex;
@@ -26,6 +26,10 @@
         height: var(--image-size);
         background-size: cover;
       }
+
+      .person{
+        margin: 0.6rem;
+      }
     </style>
   </head>
   <body>
@@ -33,10 +37,7 @@
       <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
       >
-        <a
-          href="/"
-          class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
-        >
+        
           <svg
             class="bi me-2"
             width="40"
@@ -60,7 +61,7 @@
       </header>
     </div>
 
-    <div class="container">
+    <div class="container" id="background-container" >
       <dialog id="profile">
         <button onclick="profile.open = false">close</button>
         some desc

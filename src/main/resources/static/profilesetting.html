@@ -10,11 +10,15 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <link
+    rel="stylesheet"
+    href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css"
+  />
 
-    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="/css/common.css" />
     <style>
       option{
-        background-color: aqua;
+        background-color: rgb(94, 70, 81);
       }
       .profile-header {
         /* background-color: p; */
@@ -35,7 +39,7 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        background-color: rgba(240, 255, 255, 0.7);
+        background-color: rgba(245, 245, 245, 0.7);
         margin: auto;
         padding: 3rem;
         /* background-image: url(border.png); */
@@ -49,10 +53,12 @@
         /* background-color: blue; */
         height: calc(100vh - 1rem - 1rem - 1.5rem - 2rem - 2rem - 1rem);
         display: flex;
+        font-family: Monaco;
+        
       }
       #imagePreview {
-        border-radius: 100%;
-        border: 5px solid white;
+        border-radius: 10%;
+        border: 5px solid rgb(255, 255, 255);
         box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
         width: 200px;
         height: 200px;
@@ -71,16 +77,37 @@
       input:focus{
         outline: none;
       }
+
+      #profileid{
+        display: contents;
+      }
+
+      .container-item{
+        font-family: Monaco;
+        font-size: 3 rem;
+      }
+
+      #logo{
+         width:5em;
+        font-family:Monaco;
+}
+
+  .logotext{
+  margin-right: 5rem;
+  }
+
+  #saveBtn{
+    background-color: ;
+  }
+
+
     </style>
   </head>
   <body>
-    <header
+    <div class="container">
+       <header
       class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
     >
-      <a
-        href="/"
-        class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
-      >
         <svg
           class="bi me-2"
           width="40"
@@ -92,7 +119,10 @@
         </svg>
       </a>
 
-      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id="profileid">
+        <div class="logotext">
+          <img src="logo.png" alt="logo" srcset="" id="logo" />Nohorny
+        </div>
         <li><a href="matchingweb.html" class="container-item">Home</a></li>
         <li>
           <a href="profilesetting.html" class="container-item"
@@ -102,7 +132,9 @@
         <li><a href="#" class="container-item">Let's Chat</a></li>
       </ul>
     </header>
-    <div class="form-container">
+    </div>
+   
+    <div class="form-container" id="background-container">
       <form
         id="profileForm"
         onsubmit="save(event)"
@@ -144,7 +176,7 @@
             <tr>
               <td class=>Looking for a</td>
               <td>
-                <select name="target_gender" class="form">
+                <select name="target_gender" class="form" data-role="select" >
                   <option value="m">Male</option>
                   <option value="f">Female</option>
                   <option value="o">Other</option>
@@ -154,7 +186,7 @@
             <tr>
               <td >District</td>
               <td>
-                <select name="district" class="form">
+                <select name="district" class="form" data-role="select">
                   <option value="hk">Hong Kong Island</option>
                   <option value="kln">Kowloon</option>
                   <option value="nt">New Territory</option>
@@ -192,7 +224,7 @@
 
         let formData = new FormData();
         formData.set("avatar", file);
-        let res = await fetch("/avatar", {
+        let res = await fetch(API_ORIGIN + "/avatar", {
           method: "POST",
           body: formData,
         });
@@ -219,6 +251,8 @@
         saveBtn.hidden = false;
         editBtn.hidden = true;
       }
+
     </script>
+    <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
   </body>
 </html>

@@ -1,0 +1,51 @@
+.header{
+    display: flex;
+    justify-content: right;
+   
+}
+
+.container-item{
+  margin-right: 30px;
+  font-size: 20px;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: black;
+  text-decoration: solid;
+}
+
+
+
+body {
+  /* min-height: 100vh; */
+}
+
+#background-container{
+  /* background-image: url(/images/ranpanzelwallapaper.jpeg); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: calc(100vh - 1rem - 1rem - 1.5rem - 2rem - 2rem - 1rem);
+}
+
+
+.dropdown-toggle::after{
+  display: none;
+}
+.select .drop-container > div {
+  display: none;
+  border-radius: 10px;
+}
+
+.drop-container{
+  border-radius: 10px;
+}
+
+.container-item{
+  font-family:Monaco;
+  font-size: 1.2rem;
+}
+
+body{
+  background-image: url(/images/ranpanzelwallapaper.jpeg);
+  background-size: cover;
+
+}

@@ -1,0 +1,69 @@
+
+
+.containercontroller{
+display: flex;
+justify-content:right;
+align-items: right;
+
+margin-top: 3rem;
+
+}
+
+.form-container{
+  font-family: Monaco;
+  height: 500px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: rgb(255, 229, 188,0.5);
+
+  /* border: 2px solid #000; */
+  /* border-radius: 50px; */
+
+}
+
+.Age-select{
+  display: flex;
+}
+
+.findpartnerbtn{
+  background-color: burlywood;	
+  
+}
+
+.container-item{
+  font-family:Monaco;
+  font-size: 1.2rem;
+  background-color: rgb(255, 255, 255,0.2);
+  border-radius: 10%;
+}
+
+
+.dropdown-toggle::after{
+  display: none;
+}
+.select .drop-container > div {
+  display: none;
+  border-radius: 10px;
+}
+
+.findpartnerbtn{
+  background-color: rgba(228, 187, 133, 0.4);
+  border: none;
+  width: auto;
+}
+
+#headbar{
+  display: contents;
+
+}
+
+#logo{
+  width:5em;
+}
+
+.bgcolor{
+  /* background-color: rgba(255, 255, 255, 0.5); */
+}
