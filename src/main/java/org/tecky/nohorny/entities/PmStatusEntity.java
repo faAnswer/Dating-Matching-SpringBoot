@@ -18,12 +18,12 @@ public class PmStatusEntity {
     @Id
     private int pmid;
 
-    @Column(name = "read")
-    private int read;
+    @Column(name = "isread")
+    private int isread;
 
     @Column(name = "sendtime")
-    private Timestamp sendtime;
+    private String sendtime;
 
     @Column(name = "readtime")
-    private Timestamp readtime;
+    private String readtime;
 }

@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.bind.annotation.*;
 import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
+import org.tecky.nohorny.services.intf.ILikeService;
 import org.tecky.nohorny.services.intf.IRegService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,24 @@ public class UserController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    ILikeService iLikeService;
+
+    @GetMapping(value = "/like")
+    public ResponseEntity<?> like(@RequestParam Map<String, String> userInfo, Authentication authentication) throws Exception {
+
+        String toUserName = userInfo.get("username");
+
+        if(iLikeService.changeLikeStatus(authentication,toUserName)){
+
+            return JSONResponse.ok("like");
+
+        } else {
+
+            return JSONResponse.ok("nolike");
+        }
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request) throws Exception{

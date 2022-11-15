@@ -69,7 +69,7 @@ public class WebSecurityConfig {
                     .antMatchers("/").permitAll()
                     .antMatchers("/index.html").permitAll()
                     .antMatchers("/login.html").permitAll()
-                    .anyRequest().permitAll();
+                    .anyRequest().authenticated();
 
         return http.build();
     }

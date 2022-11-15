@@ -2,10 +2,8 @@ package org.tecky.nohorny.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,6 +12,7 @@ import javax.persistence.Table;
 public class PmEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pmid;
 
     @Column(name = "touid")

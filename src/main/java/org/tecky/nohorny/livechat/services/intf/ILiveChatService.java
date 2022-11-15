@@ -1,7 +1,13 @@
 package org.tecky.nohorny.livechat.services.intf;
 
+import org.springframework.security.core.Authentication;
+import org.tecky.nohorny.entities.UserEntity;
+
+import java.util.List;
+
 public interface ILiveChatService {
 
-    public void sendMessage(Integer fromUid, Integer toUid, String message);
-
+    public void sendOfflineMessage(String fromUser, String toUser, String message);
+    public void sendOnlineMessage(String fromUser, String toUser, String message);
+    public List<String> unReadMsgFrom(Authentication authentication);
 }
