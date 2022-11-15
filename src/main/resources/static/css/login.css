@@ -1,8 +1,11 @@
 .loginpage{
-    margig;
-    background-color: rgba(30, 49, 99, 0.5);
+    margin:10px;
+    background-color: rgba(26, 33, 92, 0.5);
     max-width: 40ch;
     padding: 3rem;
+
+    
+
 
 }
 
@@ -11,7 +14,7 @@
 }
 
 .logotext{
-    font-size: 3em; ;
+    font-size: 3em; 
     font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -20,10 +23,24 @@
 }   */
 
 .container{
-    background-position: center;
-    background-image:url(/images/wallpaper3.jpg);
+    background-position: contain;
+    
     background-size: cover;
-    /* background-repeat: no-repeat; */
+    display: flex;
+    justify-content: center;
+}
+
+.textColor{
+    color:white;
+}
+
+.containercontroller{
+    background-image: url(/images/loginpage.jpg);
+    display: flex;
+    justify-content: center;
+    background-repeat:no-repeat;
+    max-width: 100%;
+    height: auto;
 }
 
 
