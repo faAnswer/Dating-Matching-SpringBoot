@@ -1,19 +1,18 @@
 package org.tecky.nohorny.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.tecky.nohorny.dto.MatchPerson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@Controller
 public class MatchController {
 
     @GetMapping("/match")
     public String getMatch(Model model) {
-
 
         List<MatchPerson> matchPersonList = new ArrayList<>();
 
@@ -38,7 +37,6 @@ public class MatchController {
         matchPersonList.add(matchPerson1);
         matchPersonList.add(matchPerson2);
         matchPersonList.add(matchPerson3);
-
 
         model.addAttribute("matchPersonList", matchPersonList);
 

@@ -11,7 +11,7 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
     <style>
       .photo-grid {
         display: flex;
@@ -69,10 +69,10 @@
 
       <div id="list" class="photo-grid">
 
-        <div class="person mb-3" th:each="matchPerson : ${matchPersonList}">
+        <div class="person mb-3" th:each="matchPerson:${matchPersonList}">
           <div class="d-flex">
-            <div class="person-id" th:text="matchPerson.uid">123</div>
-            <div class="person-name" th:text="matchPerson.name">123</div>
+            <div class="person-id" th:text="${matchPerson.uid}">123</div>
+            <div class="person-name" th:text="${matchPerson.name}">123</div>
             <button class="view-btn">View Profile</button>
           </div>
           <div class="person-avatar" style="background-image: url(https://picsum.photos/seed/2/200)"></div>
