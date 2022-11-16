@@ -1,5 +1,4 @@
 let params = new URLSearchParams(location.search)
-let nextPageHref = params.get('redirect_uri')
 
 //register function
 async function signup(event) {
@@ -8,19 +7,19 @@ async function signup(event) {
 
     try {
         let url = form.action.replace(location.origin, API_ORIGIN)
+
+        console.log(url);
+
         let res = await fetch(url, {
             method: form.method,
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                nickname: registerName.value,
                 username: registerUsername.value,
                 email: registerEmail.value,
                 password: registerPassword.value,
                 RepeatPassword: registerRepeatPassword.value,
-
-
             })
         })
         console.log('post signup response:', res.status, res.statusText)
@@ -31,7 +30,8 @@ async function signup(event) {
         if (json.error) {
             message.textContent = json.error
         } else {
-            location.href = nextPageHref
+
+            location.href = "/index.html"
         }
     } catch (error) {
         console.error('failed to post signup:', error)
@@ -71,7 +71,4 @@ async function signIn(event) {
         console.error('failed to post signup:', error)
         message.textContent = "Network Failure"
     }
-
-
-
 }
