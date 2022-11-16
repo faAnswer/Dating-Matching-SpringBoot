@@ -82,3 +82,16 @@ main {
 .form-control:focus{
     color:aliceblue
 }
+
+.containersso{
+    width: 5rem;
+    length:5rem;
+    background-color: none;
+    border-color: none;
+}
+
+#loginBtn{
+    border-radius: 100%;
+    background-color: rgba(170, 149, 175, 0.9);
+
+}
