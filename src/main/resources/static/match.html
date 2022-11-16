@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,49 +68,51 @@
       </dialog>
 
       <div id="list" class="photo-grid">
-        <div class="person mb-3">
+
+        <div class="person mb-3" th:each="matchPerson : ${matchPersonList}">
           <div class="d-flex">
-            <div class="person-id"></div>
-            <div class="person-name"></div>
+            <div class="person-id" th:text="matchPerson.uid">123</div>
+            <div class="person-name" th:text="matchPerson.name">123</div>
             <button class="view-btn">View Profile</button>
           </div>
-          <div class="person-avatar"></div>
+          <div class="person-avatar" style="background-image: url(https://picsum.photos/seed/2/200)"></div>
         </div>
+
       </div>
     </div>
 
-    <script>
-      let template = list.querySelector(".person");
-      template.remove();
+<!--    <script>-->
+<!--      let template = list.querySelector(".person");-->
+<!--      template.remove();-->
 
-      fetch("http://server/match" + location.search);
+<!--      fetch("http://server/match" + location.search);-->
 
-      let items = [
-        { id: 1, name: "a", image: "https://picsum.photos/seed/1/200" },
-        { id: 2, name: "b", image: "https://picsum.photos/seed/2/200" },
-        { id: 3, name: "c", image: "https://picsum.photos/seed/3/200" },
-      ];
-      for (let i = 4; i <= 6; i++) {
-        items.push({
-          id: i,
-          name: "random",
-          image: `https://picsum.photos/seed/${i}/200`,
-        });
-      }
+<!--      let items = [-->
+<!--        { id: 1, name: "a", image: "https://picsum.photos/seed/1/200" },-->
+<!--        { id: 2, name: "b", image: "https://picsum.photos/seed/2/200" },-->
+<!--        { id: 3, name: "c", image: "https://picsum.photos/seed/3/200" },-->
+<!--      ];-->
+<!--      for (let i = 4; i <= 6; i++) {-->
+<!--        items.push({-->
+<!--          id: i,-->
+<!--          name: "random",-->
+<!--          image: `https://picsum.photos/seed/${i}/200`,-->
+<!--        });-->
+<!--      }-->
 
-      for (let person of items) {
-        let node = template.cloneNode(true);
-        node.querySelector(".person-id").textContent = person.id;
-        node.querySelector(".person-name").textContent = person.name;
-        node.querySelector(
-          ".person-avatar"
-        ).style.backgroundImage = `url(${person.image})`;
-        node.querySelector(".view-btn").addEventListener("click", () => {
-          console.log("view", person);
-          profile.open = true;
-        });
-        list.appendChild(node);
-      }
-    </script>
+<!--      for (let person of items) {-->
+<!--        let node = template.cloneNode(true);-->
+<!--        node.querySelector(".person-id").textContent = person.id;-->
+<!--        node.querySelector(".person-name").textContent = person.name;-->
+<!--        node.querySelector(-->
+<!--          ".person-avatar"-->
+<!--        ).style.backgroundImage = `url(${person.image})`;-->
+<!--        node.querySelector(".view-btn").addEventListener("click", () => {-->
+<!--          console.log("view", person);-->
+<!--          profile.open = true;-->
+<!--        });-->
+<!--        list.appendChild(node);-->
+<!--      }-->
+<!--    </script>-->
   </body>
 </html>
