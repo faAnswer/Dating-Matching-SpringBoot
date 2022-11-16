@@ -1,12 +1,19 @@
 .loginpage{
+    position: absolute;
     margin:10px;
-    background-color: rgba(26, 33, 92, 0.5);
+    background-color: rgba(171, 138, 172, 0.1);
     max-width: 40ch;
     padding: 3rem;
+    top:50px;
+    width:700px;
+    height:600px;
+    /* left:150px */
 
-    
+}
 
-
+#logo-container{
+    position: fixed;
+    left: 0px
 }
 
 #logo{
@@ -18,29 +25,60 @@
     font-family:Arial, Helvetica, sans-serif;
 }
 
-/* body{
-   
-}   */
-
-.container{
-    background-position: contain;
-    
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-}
-
 .textColor{
     color:white;
 }
-
-.containercontroller{
-    background-image: url(/images/loginpage.jpg);
+body{
     display: flex;
     justify-content: center;
-    background-repeat:no-repeat;
-    /* max-width: 100%; */
-    height: auto;
 }
 
+.bg-img {
+    /* position: absolute; */
+    top: 0px;
+    object-fit: contain;
+    background-size: 50vh;
+    border-radius: 10px;
+}
 
+.containercontroller{
+
+    position: relative;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    /* height: 50vh; */
+}
+/* .container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+header{
+    height: 5em;
+    ;
+}
+main {
+    margin-top: 5em;
+    display: flex;
+}
+
+#btnTextColor{
+   background-color: aliceblue;
+   color: black;
+}
+
+.form-label{
+    color: aliceblue;
+    -webkit-text-fill-color: rgba(211, 175, 219, 0.8);
+}
+
+.form-control{
+    color:rgb(209, 200, 101)
+}
+
+.form-control:focus{
+    color:aliceblue
+}
