@@ -10,17 +10,15 @@ async function signup(event) {
         let url = form.action.replace(location.origin, API_ORIGIN)
         let res = await fetch(url, {
             method: form.method,
+            credentials: 'omit',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                nickname: registerName.value,
                 username: registerUsername.value,
                 email: registerEmail.value,
                 password: registerPassword.value,
                 RepeatPassword: registerRepeatPassword.value,
-
-
             })
         })
         console.log('post signup response:', res.status, res.statusText)
@@ -52,7 +50,7 @@ async function signIn(event) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: loginNam.value,
+                username: loginName.value,
                 password: loginPassword.value,
             })
 
