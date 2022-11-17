@@ -10,15 +10,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-@Configuration
-@EnableWebMvc
+//@Configuration
+//@EnableWebMvc
 public class HtmlMvcConfig implements WebMvcConfigurer {
 
-    @Bean
+//    @Bean
     public ClassLoaderTemplateResolver yourTemplateResolver() {
         ClassLoaderTemplateResolver yourTemplateResolver = new ClassLoaderTemplateResolver();
-        yourTemplateResolver.setPrefix("static/");
+        yourTemplateResolver.setPrefix("classpath:templates/");
         yourTemplateResolver.setSuffix(".html");
+        yourTemplateResolver.setCacheable(false);
         yourTemplateResolver.setTemplateMode(TemplateMode.HTML);
         yourTemplateResolver.setCharacterEncoding("UTF-8");
         yourTemplateResolver.setOrder(0);
