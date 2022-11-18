@@ -63,6 +63,7 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                     .antMatchers("/chatroom").authenticated()
                     .antMatchers("/chatroom.html").authenticated()
+                    .antMatchers("/profile").authenticated()
 
                     .antMatchers("/nohorny/**").permitAll()
                     .antMatchers("/hello").permitAll()
@@ -78,6 +79,11 @@ public class WebSecurityConfig {
                     .antMatchers("/index.html").permitAll()
                     .antMatchers("/login.html").permitAll()
                     .anyRequest().permitAll();
+
+
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/index");
+        http.formLogin().loginPage("/login");
+
 
         return http.build();
     }

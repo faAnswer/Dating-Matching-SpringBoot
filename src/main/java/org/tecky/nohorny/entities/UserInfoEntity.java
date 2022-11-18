@@ -17,16 +17,19 @@ public class UserInfoEntity {
     private int uid;
 
     @Column(name = "gender")
-    private int gender;
+    private String gender;
 
     @Column(name = "picid")
     private String picId;
 
-    @Column(name = "sexal")
-    private int sexal;
+    @Column(name = "hobbies")
+    private String hobbies;
+
+    @Column(name = "sexual")
+    private String sexual;
 
     @Column(name = "districtid")
-    private int districtId;
+    private int districtid;
 
     @Column(name = "age")
     private int age;

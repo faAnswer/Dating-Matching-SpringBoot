@@ -12,7 +12,7 @@ async function signup(event) {
 
         let res = await fetch(url, {
             method: form.method,
-            credentials: 'omit',
+            //credentials: 'omit',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -66,7 +66,9 @@ async function signIn(event) {
         if (json.error) {
             message.textContent = json.error
         } else {
-            location.href = nextPageHref
+            console.log(res)
+
+            location.href = "/index"
         }
     } catch (error) {
         console.error('failed to post signup:', error)

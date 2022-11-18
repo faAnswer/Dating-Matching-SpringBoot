@@ -7,7 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
+import org.tecky.nohorny.entities.UserRoleEntity;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
+import org.tecky.nohorny.mapper.UserRoleEntityRepository;
 import org.tecky.nohorny.services.intf.IRegService;
 
 @Service
@@ -18,6 +20,10 @@ public class RegServiceImpl implements IRegService{
 
     @Autowired
     UserEntityRespostity userEntityRespostity;
+
+    @Autowired
+    UserRoleEntityRepository userRoleEntityRepository;
+
 
     @Override
     public ResponseEntity<JSONResponse<Object>> regNewUser(UserEntity userEntity) {
@@ -39,8 +45,17 @@ public class RegServiceImpl implements IRegService{
         }
 
         userEntity.setShapassword(passwordEncoder.encode(userEntity.getShapassword()));
+        userEntityRespostity.saveAndFlush(userEntity);
 
-        userEntityRespostity.save(userEntity);
+        UserRoleEntity userRoleEntity = new UserRoleEntity();
+
+        userRoleEntity.setUid(userEntityRespostity.findByUsername(userEntity.getUsername()).getUid());
+
+        userRoleEntity.setRoleid(2);
+
+        userRoleEntityRepository.saveAndFlush(userRoleEntity);
+
+        //userRoleEntityRepository
 
         return JSONResponse.ok(userEntity);
     }

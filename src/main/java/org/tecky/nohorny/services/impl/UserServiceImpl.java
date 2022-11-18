@@ -2,14 +2,18 @@ package org.tecky.nohorny.services.impl;
 
 import org.faAnswer.web.util.dto.ConversionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.tecky.nohorny.dto.CurrentUserDTO;
+import org.tecky.nohorny.dto.UserProfileDTO;
 import org.tecky.nohorny.entities.RoleEntity;
 import org.tecky.nohorny.entities.UserEntity;
+import org.tecky.nohorny.entities.UserInfoEntity;
 import org.tecky.nohorny.entities.UserRoleEntity;
 import org.tecky.nohorny.mapper.RoleEntityRepository;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
+import org.tecky.nohorny.mapper.UserInfoEntityRepository;
 import org.tecky.nohorny.mapper.UserRoleEntityRepository;
 import org.tecky.nohorny.services.intf.IUserService;
 
@@ -28,6 +32,12 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     UserRoleEntityRepository userRoleEntityRepository;
+
+    @Autowired
+    UserInfoEntityRepository userInfoEntityRepository;
+
+    @Value("${minio.endpoint}")
+    String minioEndpoint;
 
     @Override
     public CurrentUserDTO getCurrentUser(Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -55,5 +65,35 @@ public class UserServiceImpl implements IUserService {
         currentUserDTO.setRolename("ROLE_GUEST");
 
         return currentUserDTO;
+    }
+
+    @Override
+    public boolean upDateProfile(UserInfoEntity userInfoEntity, Authentication authentication) {
+
+        boolean res = false;
+
+        UserEntity userEntity = userEntityRespostity.findByUsername(authentication.getName());
+        int uid = userEntity.getUid();
+
+        userInfoEntity.setUid(uid);
+        userInfoEntityRepository.saveAndFlush(userInfoEntity);
+
+        res = true;
+
+        return res;
+    }
+
+    @Override
+    public UserProfileDTO getProfile(Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        UserEntity userEntity = userEntityRespostity.findByUsername(authentication.getName());
+
+        UserInfoEntity userInfoEntity = userInfoEntityRepository.findByUid(userEntity.getUid());
+
+        UserProfileDTO userProfileDTO = ConversionUtil.convertS2S(UserProfileDTO.class, userInfoEntity);
+
+        userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+
+        return userProfileDTO;
     }
 }
