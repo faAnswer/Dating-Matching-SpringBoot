@@ -40,7 +40,7 @@ public class NoHornyUserDetailService implements UserDetailsService {
 
         for(UserRoleEntity roleEntity : userRoleEntityList){
 
-            authorities.add(new SimpleGrantedAuthority(roleEntityRepository.findByRoleid(roleEntity.getRoleid()).getName()));
+            authorities.add(new SimpleGrantedAuthority(roleEntityRepository.findByRoleid(roleEntity.getRoleid()).getRolename()));
         }
 
         UserDetails userDetails = new User(userEntity.getUsername(), userEntity.getShapassword(), authorities);
