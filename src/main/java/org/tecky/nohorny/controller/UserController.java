@@ -85,38 +85,46 @@ public class UserController {
                                                         @RequestParam(value = "avatar", required = false) MultipartFile avatar,
                                                         Authentication authentication) throws Exception {
 
-        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+        String picId = null;
+        //Update Profile Pic
+        if(!"".equals(avatar.getOriginalFilename())){
 
-        Matcher matcher = this.pattern.matcher(avatar.getOriginalFilename());
+            MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
-        String fileExtension = "";
+            Matcher matcher = this.pattern.matcher(avatar.getOriginalFilename());
 
-        while (matcher.find()) {
+            String fileExtension = "";
 
-            fileExtension += matcher.group(0);
+            while (matcher.find()) {
+
+                fileExtension += matcher.group(0);
+            }
+
+            File tempFile = null;
+            tempFile = File.createTempFile("temp", fileExtension);
+            avatar.transferTo(tempFile);
+
+            map.add("file", new FileSystemResource(tempFile));
+            map.add("bucketName", this.bucketName);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+            HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(map, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            String jsonResponse;
+
+            jsonResponse = restTemplate.postForEntity(this.storageServiceAPI, httpEntity, String.class).getBody();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            Map<String, String> mapResponse = objectMapper.readValue(jsonResponse, new TypeReference<>() {
+            });
+
+            picId = mapResponse.get("filename");
         }
 
-        File tempFile = null;
-        tempFile = File.createTempFile("temp", fileExtension);
-        avatar.transferTo(tempFile);
-
-        map.add("file", new FileSystemResource(tempFile));
-        map.add("bucketName", this.bucketName);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(map, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        String jsonResponse;
-
-        jsonResponse = restTemplate.postForEntity(this.storageServiceAPI, httpEntity, String.class).getBody();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        Map<String, String> mapResponse = objectMapper.readValue(jsonResponse, new TypeReference<>() {});
-        String picId = mapResponse.get("filename");
 
         UserInfoEntity userInfoEntity = new UserInfoEntity();
 

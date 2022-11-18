@@ -9,12 +9,12 @@ import javax.persistence.Column;
 @Setter
 public class UserProfileDTO {
 
-    private int uid;
+    private Integer uid;
     private String gender;
     private String avatarUrl;
     private String hobbies;
     private String sexual;
-    private int districtid;
-    private int age;
+    private Integer districtid;
+    private Integer age;
 
 }

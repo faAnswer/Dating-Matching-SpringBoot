@@ -92,7 +92,14 @@ public class UserServiceImpl implements IUserService {
 
         UserProfileDTO userProfileDTO = ConversionUtil.convertS2S(UserProfileDTO.class, userInfoEntity);
 
-        userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+        if(userInfoEntity.getPicId() == null) {
+
+            userProfileDTO.setAvatarUrl(null);
+
+        } else {
+
+            userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+        }
 
         return userProfileDTO;
     }

@@ -29,9 +29,9 @@ public class UserInfoEntity {
     private String sexual;
 
     @Column(name = "districtid")
-    private int districtid;
+    private Integer districtid;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
 }

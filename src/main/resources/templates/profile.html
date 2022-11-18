@@ -155,8 +155,9 @@
             <div
                     id="imagePreview"
                     class="m-auto"
-                    style="background-image: url(castle.png)"
                     onclick="selectImage()"
+                    th:styleappend="${profile.avatarUrl ne null}? 'background-image: url(' + ${profile.avatarUrl} + ')':'background-image: url(/images/avatar.jpg)'"
+
             ></div>
             <input
                     type="file"
@@ -173,9 +174,9 @@
                 <td>
                     <label>
                         <select name="gender" class="form">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                            <option value="O">Other</option>
+                            <option value="M" th:selected="${profile.gender eq 'M'}">Male</option>
+                            <option value="F" th:selected="${profile.gender eq 'F'}">Female</option>
+                            <option value="O" th:selected="${profile.gender eq 'O'}">Other</option>
                         </select>
                     </label>
                 </td>
@@ -183,7 +184,7 @@
             <tr>
                 <td>Age</td>
                 <td><label>
-                    <input name="age" class="form" type="number"/>
+                    <input name="age" class="form" type="number" th:value="${profile.age}"/>
                 </label></td>
             </tr>
 
@@ -191,10 +192,11 @@
                 <td class=>Looking for a</td>
                 <td>
                     <label>
-                        <select name="sexual" class="form" data-role="select">
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                            <option value="O">Other</option>
+                        <select name="sexual" class="form" data-role="select" >
+
+                            <option value="M" th:selected="${profile.sexual eq 'M'}">Male</option>
+                            <option value="F" th:selected="${profile.sexual eq 'F'}">Female</option>
+                            <option value="O" th:selected="${profile.sexual eq 'O'}">Other</option>
                         </select>
                     </label>
                 </td>
@@ -203,10 +205,12 @@
                 <td>District</td>
                 <td>
                     <label>
-                        <select name="districtid" class="form" data-role="select">
-                            <option value="1">Hong Kong Island</option>
-                            <option value="2">Kowloon</option>
-                            <option value="3">New Territory</option>
+                        <select name="districtid" class="form" data-role="select" th:selected="${profile.districtid}">
+
+
+                            <option value="1" th:selected="${profile.districtid eq 1}">Hong Kong Island</option>
+                            <option value="2" th:selected="${profile.districtid eq 2}">Kowloon</option>
+                            <option value="3" th:selected="${profile.districtid eq 3}">New Territory</option>
                         </select>
                     </label>
                 </td>
@@ -214,7 +218,7 @@
             <tr>
                 <td>Hobbies</td>
                 <td><label>
-                    <input name="hobbies" class="form"/>
+                    <input name="hobbies" class="form" th:value="${profile.hobbies}"/>
                 </label></td>
             </tr>
             </tbody>
