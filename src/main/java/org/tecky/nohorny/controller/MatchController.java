@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/match")
 public class MatchController {
 
-    @PostMapping("/result")
-    public ResponseEntity<?> result (){
-
-
-        
-
-
-    }
+//    @PostMapping("/result")
+//    public ResponseEntity<?> result (){
+//
+//
+//
+//
+//
+//    }
 
 
 

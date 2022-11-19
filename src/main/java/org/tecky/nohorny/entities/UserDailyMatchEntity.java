@@ -15,6 +15,6 @@ public class UserDailyMatchEntity {
     @Id
     private int uid;
 
-    @Column(name = "isMatch")
-    private int isMatch;
+    @Column(name = "ismatch")
+    private int ismatch;
 }

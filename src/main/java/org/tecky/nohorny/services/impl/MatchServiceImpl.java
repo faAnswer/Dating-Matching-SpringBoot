@@ -1,5 +1,6 @@
 package org.tecky.nohorny.services.impl;
 
+import org.faAnswer.web.util.dto.ConversionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import org.tecky.nohorny.mapper.UserInfoEntityRepository;
 import org.tecky.nohorny.mapper.UserMatchEntityRepository;
 import org.tecky.nohorny.services.intf.IMatchService;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +46,11 @@ public class MatchServiceImpl implements IMatchService {
 
         UserDailyMatchEntity userDailyMatchEntity = userDailyMatchEntityRepository.findByUid(uid);
 
-        return userDailyMatchEntity.getIsMatch() == 0;
+        return userDailyMatchEntity.getIsmatch() == 0;
     }
 
     @Override
-    public List<UserProfileDTO> getMatchUser(Authentication authentication) {
+    public List<UserProfileDTO> getMatchUser(Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         List<UserProfileDTO> currentUserDTOList = new ArrayList<>();
 
@@ -101,7 +103,7 @@ public class MatchServiceImpl implements IMatchService {
         UserDailyMatchEntity userDailyMatchEntity = new UserDailyMatchEntity();
 
         userDailyMatchEntity.setUid(selfUid);
-        userDailyMatchEntity.setIsMatch(1);
+        userDailyMatchEntity.setIsmatch(1);
 
         userDailyMatchEntityRepository.saveAndFlush(userDailyMatchEntity);
     }
