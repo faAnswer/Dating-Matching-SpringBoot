@@ -9,6 +9,7 @@ import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
 import org.tecky.nohorny.entities.UserInfoEntity;
 import org.tecky.nohorny.entities.UserRoleEntity;
+import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
 import org.tecky.nohorny.mapper.UserInfoEntityRepository;
 import org.tecky.nohorny.mapper.UserRoleEntityRepository;
@@ -28,6 +29,9 @@ public class RegServiceImpl implements IRegService{
 
     @Autowired
     UserInfoEntityRepository userInfoEntityRepository;
+
+    @Autowired
+    ILiveChatService iLiveChatService;
 
     @Override
     public ResponseEntity<JSONResponse<Object>> regNewUser(UserEntity userEntity) {
@@ -66,9 +70,17 @@ public class RegServiceImpl implements IRegService{
         userInfoEntity.setUid(uid);
         userInfoEntityRepository.saveAndFlush(userInfoEntity);
 
-
-        //userRoleEntityRepository
+        //Welcome Msg from System
+        welcomeMsg(userEntity.getUsername());
 
         return JSONResponse.ok(userEntity);
     }
+
+    private void welcomeMsg(String username){
+
+        String msg = "Welcome " + username + " !";
+        iLiveChatService.sendOfflineMessage("System", username, msg);
+    }
+
+
 }

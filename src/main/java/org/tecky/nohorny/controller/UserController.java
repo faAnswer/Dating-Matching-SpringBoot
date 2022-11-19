@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
 import org.tecky.nohorny.entities.UserInfoEntity;
+import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
 import org.tecky.nohorny.services.intf.ILikeService;
 import org.tecky.nohorny.services.intf.IRegService;
 import org.tecky.nohorny.services.intf.IUserService;
@@ -52,6 +53,9 @@ public class UserController {
     @Autowired
     IUserService iUserService;
 
+    @Autowired
+    ILiveChatService iLiveChatService;
+
     @GetMapping(value = "/like")
     public ResponseEntity<?> like(@RequestParam Map<String, String> userInfo, Authentication authentication) throws Exception {
 
@@ -72,6 +76,7 @@ public class UserController {
 
     @Value("${core.storageservice.upload.api}")
     private String storageServiceAPI;
+
 
 
     private Pattern pattern = Pattern.compile("\\.[a-zA-Z]+$");

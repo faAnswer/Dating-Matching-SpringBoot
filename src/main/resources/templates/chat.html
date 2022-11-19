@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Daily UI #013 | Direct Messaging</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'><link rel="stylesheet" href="/chat/css/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="center"> 
+  <!-- main part -->
+  <div class="contacts">
+    <i class="fas fa-bars fa-2x"></i>
+    <h2>
+      Contacts
+    </h2>
+    <div class="contact">
+      <div class="pic rogers"></div>
+      <div class="badge">
+        14
+      </div>
+      <div class="name">
+        Steve Rogers
+      </div>
+      <div class="message">
+        That is America's ass 🇺🇸🍑
+      </div>
+    </div>
+    <div class="contact">
+      <div class="pic stark"></div>
+      <div class="name">
+        Tony Stark
+      </div>
+      <div class="message">
+        Uh, he's from space, he came here to steal a necklace from a wizard.
+      </div>
+    </div>
+    <div class="contact">
+      <div class="pic banner"></div>
+      <div class="badge">
+        1
+      </div>
+      <div class="name">
+        Bruce Banner
+      </div>
+      <div class="message">
+        There's an Ant-Man *and* a Spider-Man?
+      </div>
+    </div>
+    <div class="contact">
+      <div class="pic thor"></div>
+      <div class="name">
+        Thor Odinson
+      </div>
+      <div class="badge">
+        3
+      </div>
+      <div class="message">
+        I like this one
+      </div>
+    </div>
+    <div class="contact">
+      <div class="pic danvers"></div>
+      <div class="badge">
+        2
+      </div>
+      <div class="name">
+        Carol Danvers
+      </div>
+      <div class="message">
+        Hey Peter Parker, you got something for me?
+      </div>
+    </div>
+  </div>
+  <!-- the header part should be a div -->
+  <div class="chat">
+    <!-- //header -->
+    <div class="contact bar">
+      <div class="pic stark"></div>
+      <div class="name">
+        Tony Stark
+      </div>
+      <div class="seen">
+        Today at 12:56
+      </div>
+    </div>
+    <!-- header -->
+    <div class="messages" id="chat">
+      <div class="time">
+        Today at 11:41
+      </div>
+      <div class="message sender">
+        Hey, man! What's up, Mr Stark? 👋
+      </div>
+      <div class="message sender">
+        Kid, where'd you come from? 
+      </div>
+      <div class="message self">
+        Field trip! 🤣
+      </div>
+      <div class="message self">
+        Uh, what is this guy's problem, Mr. Stark? 🤔
+      </div>
+      <div class="message sender">
+        Uh, he's from space, he came here to steal a necklace from a wizard.
+      </div>
+      <div class="message sender">
+        <div class="typing typing-1"></div>
+        <div class="typing typing-2"></div>
+        <div class="typing typing-3"></div>
+      </div>
+    </div>
+    <div class="input">
+      <i class="fas fa-camera"></i><i class="far fa-laugh-beam"></i><input placeholder="Type your message here!" type="text" /><i class="fas fa-microphone"></i>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="/chat/js/script.js"></script>
+
+</body>
+</html>
