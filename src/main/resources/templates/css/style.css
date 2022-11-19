@@ -1,12 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Red+Hat+Display:400,500,900&display=swap");
-body,
-html {
+body, html {
   font-family: Red hat Display, sans-serif;
   font-weight: 400;
   line-height: 1.25em;
   letter-spacing: 0.025em;
   color: #333;
-  /* background: #F7F7F7; */
+  background: #F7F7F7;
 }
 
 .center {
@@ -41,8 +40,7 @@ html {
   font-weight: 500;
   margin-bottom: 0.125rem;
 }
-.contact .message,
-.contact .seen {
+.contact .message, .contact .seen {
   font-size: 0.9rem;
   color: #999;
 }
@@ -67,14 +65,13 @@ html {
   left: 0;
   transform: translate(-6rem, -50%);
   width: 24rem;
-  /* height: 32rem; */
+  height: 32rem;
   padding: 1rem 2rem 1rem 1rem;
   box-sizing: border-box;
   border-radius: 1rem 0 0 1rem;
   cursor: pointer;
   background: white;
-  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1),
-    2rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 2rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
   transition: transform 500ms;
 }
 .contacts h2 {
@@ -101,14 +98,13 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* width: 24rem; */
+  width: 24rem;
   height: 38rem;
   z-index: 2;
   box-sizing: border-box;
   border-radius: 1rem;
   background: white;
-  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1),
-    0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
 }
 .chat .contact.bar {
   flex-basis: 3.5rem;
@@ -118,15 +114,14 @@ html {
 }
 .chat .messages {
   padding: 1rem;
-  background: #f7f7f7;
+  background: #F7F7F7;
   flex-shrink: 2;
   overflow-y: auto;
-  box-shadow: inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.05),
-    inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2rem 2rem -2rem rgba(0, 0, 0, 0.05), inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.05);
 }
 .chat .messages .time {
   font-size: 0.8rem;
-  background: #eee;
+  background: #EEE;
   padding: 0.25rem 1rem;
   border-radius: 2rem;
   color: #999;
@@ -139,15 +134,14 @@ html {
   box-sizing: border-box;
   padding: 0.5rem 1rem;
   margin: 1rem;
-  background: #fff;
+  background: #FFF;
   border-radius: 1.125rem 1.125rem 1.125rem 0;
   min-height: 2.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   max-width: 66%;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075),
-    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.075), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.1);
 }
 .chat .messages .message.self {
   margin: 1rem 1rem 1rem auto;
@@ -166,15 +160,15 @@ html {
 }
 .chat .messages .message .typing.typing-1 {
   -webkit-animation: typing 3s infinite;
-  animation: typing 3s infinite;
+          animation: typing 3s infinite;
 }
 .chat .messages .message .typing.typing-2 {
   -webkit-animation: typing 3s 250ms infinite;
-  animation: typing 3s 250ms infinite;
+          animation: typing 3s 250ms infinite;
 }
 .chat .messages .message .typing.typing-3 {
   -webkit-animation: typing 3s 500ms infinite;
-  animation: typing 3s 500ms infinite;
+          animation: typing 3s 500ms infinite;
 }
 .chat .input {
   box-sizing: border-box;
@@ -202,8 +196,7 @@ html {
   margin-right: 1rem;
   border-radius: 1.125rem;
   flex-grow: 2;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1),
-    0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1), 0rem 1rem 1rem -1rem rgba(0, 0, 0, 0.2);
   font-family: Red hat Display, sans-serif;
   font-weight: 400;
   letter-spacing: 0.025em;
@@ -213,9 +206,7 @@ html {
 }
 
 @-webkit-keyframes typing {
-  0%,
-  75%,
-  100% {
+  0%, 75%, 100% {
     transform: translate(0, 0.25rem) scale(0.9);
     opacity: 0.5;
   }
@@ -226,9 +217,7 @@ html {
 }
 
 @keyframes typing {
-  0%,
-  75%,
-  100% {
+  0%, 75%, 100% {
     transform: translate(0, 0.25rem) scale(0.9);
     opacity: 0.5;
   }
