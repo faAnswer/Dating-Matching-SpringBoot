@@ -169,7 +169,7 @@
         let contactDiv = tarUserDiv.querySelector(".contact")
 
         contactDiv.querySelector(".badge").style.display="block";
-        contactDiv.querySelector(".badge").textContent = 1;
+        contactDiv.querySelector(".badge").textContent = 1 + Number(contactDiv.querySelector(".badge").textContent);
         contactDiv.querySelector(".message").textContent = megSend;
 
       }
