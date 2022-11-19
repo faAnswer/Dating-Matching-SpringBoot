@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="d-flex p-3">
+      <ul class="room-list list-group">
+        <li class="room-item list-group-item">
+          <img />
+          <div class="room-title"></div>
+        </li>
+      </ul>
+      <div class="chat-room">
+        <div class="room-title">room 1</div>
+        <div class="message-list list-group">
+          <div class="message-item list-group-item">
+            <div class="message-content">hi</div>
+            <button class="btn btn-primary room_link">chat</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/api.js"></script>
+    <script>
+      let roomList = document.querySelector(".room-list");
+      let roomItemTemplate = roomList.querySelector(".room-item");
+      roomItemTemplate.remove();
+
+      let messageList = document.querySelector(".message-list");
+      let messageItemTemplate = messageList.querySelector(".message-item");
+      messageItemTemplate.remove();
+
+      async function loadRoomList() {
+        // todo ajax
+        let rooms = [
+          {
+            id: 1,
+            title: "apple",
+            icon: "https://picsum.photos/seed/1/60/60",
+          },
+          { id: 2, title: "banana" },
+          { id: 3, title: "cherry" },
+          { id: 4, title: "orange" },
+          { id: 5, title: "pineapple" },
+        ];
+        for (let room of rooms) {
+          let node = roomItemTemplate.cloneNode(true);
+          node.querySelector("img").src = room.icon;
+          node.querySelector(".room-title").textContent = room.title;
+          node.addEventListener("click", () => {
+            toRoom(room);
+          });
+          roomList.appendChild(node);
+        }
+      }
+      loadRoomList();
+      function toRoom(room) {
+        document.querySelector(".chat-room .room-title").textContent =
+          room.title;
+        // ajax load chat history
+        let chats = [
+          { id: 1, content: "hi in room " + room.title },
+          { id: 2, content: "hello in room " + room.title },
+          {
+            id: 3,
+            content: "cherry liked your photo",
+            link_room: 3,
+          },
+        ];
+        messageList.textContent = "";
+        for (let chat of chats) {
+          let node = messageItemTemplate.cloneNode(true);
+          node.querySelector(".message-content").textContent = chat.content;
+          if (chat.link_room) {
+            node.querySelector(".room_link").addEventListener("click", () => {
+              let room = {
+                id: chat.link_room,
+                title: "fake room",
+              };
+              toRoom(room);
+            });
+          } else {
+            node.querySelector(".room_link").remove();
+          }
+          messageList.appendChild(node);
+        }
+      }
+    </script>
+  </body>
+</html>
