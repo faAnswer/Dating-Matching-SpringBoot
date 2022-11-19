@@ -11,7 +11,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="/chat/css/style.css" />
+    <link rel="stylesheet" href="/css/chat.css" />
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link
       rel="stylesheet"
@@ -40,14 +40,14 @@
     <!-- partial:index.partial.html -->
     <div class="center">
       <!-- main part -->
-      <div class="contacts">
+      <div class="contacts" id="contact_list">
         <i class="fas fa-bars fa-2x"></i>
         <h2>Contacts</h2>
 
-        <a th:each="chatContact:${chatContactList}" th:href="'/chat?user=' + ${chatContact.username}">
+        <a th:each="chatContact:${chatContactList}" th:href="'/chat?user=' + ${chatContact.username}" th:id="${chatContact.username}">
           <div class="contact">
             <div class="pic" th:styleappend="${chatContact.avatarUrl ne null}? 'background-image: url(' + ${chatContact.avatarUrl} + ')':'background-image: url(/images/avatar.jpg)'"></div>
-            <div class="badge" th:if="${chatContact.unReadMsgNum gt 0}" th:text="${chatContact.unReadMsgNum}"></div>
+            <div class="badge" th:styleappend="${chatContact.unReadMsgNum gt 0}? 'display:block;': 'display:none;'" th:text="${chatContact.unReadMsgNum}"></div>
             <div class="name" th:text="${chatContact.username}"></div>
             <div class="message" th:text="${chatContact.recentMsg}"></div>
           </div>
@@ -99,7 +99,7 @@
     </div>
     <!-- partial -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/chat/js/script.js"></script>
+    <script src="/js/chat.js"></script>
   </body>
 
   <script type="text/javascript">
@@ -154,11 +154,23 @@
         senderNode.classList.add("message");
         senderNode.classList.add("sender");
 
-
         senderNode.textContent = msg;
-
-
         document.getElementById("chat").appendChild(senderNode);
+
+      } else {
+
+        let msgMatch = msg.matchAll(/(^[^:]+):(.*)/g);
+        let msgMatchArr = [...msgMatch][0];
+
+        let tarUser = msgMatchArr[1];
+        let megSend = msgMatchArr[2];
+
+        let tarUserDiv = document.getElementById(tarUser);
+        let contactDiv = tarUserDiv.querySelector(".contact")
+
+        contactDiv.querySelector(".badge").style.display="block";
+        contactDiv.querySelector(".badge").textContent = 1;
+        contactDiv.querySelector(".message").textContent = megSend;
 
       }
 
