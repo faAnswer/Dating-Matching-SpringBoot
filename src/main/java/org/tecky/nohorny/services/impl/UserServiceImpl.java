@@ -101,6 +101,37 @@ public class UserServiceImpl implements IUserService {
             userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
         }
 
+        userProfileDTO.setUsername(authentication.getName());
+
         return userProfileDTO;
     }
+
+    @Override
+    public UserProfileDTO getProfile(String username) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+
+        return findProfile(username);
+    }
+
+    private UserProfileDTO findProfile(String username) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        UserEntity userEntity = userEntityRespostity.findByUsername(username);
+
+        UserInfoEntity userInfoEntity = userInfoEntityRepository.findByUid(userEntity.getUid());
+
+        UserProfileDTO userProfileDTO = ConversionUtil.convertS2S(UserProfileDTO.class, userInfoEntity);
+
+        if(userInfoEntity.getPicId() == null) {
+
+            userProfileDTO.setAvatarUrl(null);
+
+        } else {
+
+            userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+        }
+        userProfileDTO.setUsername(username);
+
+        return userProfileDTO;
+    }
+
 }

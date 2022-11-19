@@ -7,9 +7,8 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class MatchPerson implements Serializable {
+public class MatchPerson extends UserProfileDTO implements Serializable {
 
-    private Integer uid;
-    private String name;
-    private String avatar;
+    private String username;
+
 }

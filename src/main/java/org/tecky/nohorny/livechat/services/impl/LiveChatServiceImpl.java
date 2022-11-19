@@ -1,18 +1,16 @@
 package org.tecky.nohorny.livechat.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.tecky.nohorny.entities.PmContentEntity;
-import org.tecky.nohorny.entities.PmEntity;
-import org.tecky.nohorny.entities.PmStatusEntity;
-import org.tecky.nohorny.entities.UserEntity;
+import org.tecky.nohorny.entities.*;
+import org.tecky.nohorny.livechat.dto.LiveChatContactDTO;
 import org.tecky.nohorny.livechat.dto.LiveChatMsgDTO;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
 import org.tecky.nohorny.mapper.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,14 @@ public class LiveChatServiceImpl implements ILiveChatService {
     @Autowired
     UserEntityRespostity userEntityRespostity;
 
+    @Autowired
+    UserContactEntityRepository userContactEntityRepository;
+
+    @Autowired
+    UserInfoEntityRepository userInfoEntityRepository;
+
+    @Value("${minio.endpoint}")
+    String minioEndpoint;
 
     private int messageType;
 
@@ -131,7 +137,7 @@ public class LiveChatServiceImpl implements ILiveChatService {
         uidList.add(sender.getUid());
         uidList.add(self.getUid());
 
-        List<PmEntity> pmEntityList = pmEntityRepository.findByFromuidInAndTouidIn(uidList, uidList);
+        List<PmEntity> pmEntityList = pmEntityRepository.findByFromuidInAndTouidInOrderByPmidAsc(uidList, uidList);
 
         for(PmEntity pm : pmEntityList){
 
@@ -164,5 +170,65 @@ public class LiveChatServiceImpl implements ILiveChatService {
             }
         }
         return liveChatMsgDTOList;
+    }
+
+    @Override
+    public List<LiveChatContactDTO> getAllContacts(Authentication authentication) {
+
+        List<LiveChatContactDTO> liveChatContactDTOList = new ArrayList<>();
+
+        UserEntity self = userEntityRespostity.findByUsername(authentication.getName());
+        Integer selfUid = self.getUid();
+
+        List<UserContactEntity> userContactEntityList = userContactEntityRepository.findByUid(selfUid);
+
+        Integer contactUserUid = null;
+        UserEntity contactUserEntity = null;
+
+        for(UserContactEntity userContactEntity: userContactEntityList){
+
+            LiveChatContactDTO liveChatContactDTO = new LiveChatContactDTO();
+
+            contactUserUid = userContactEntity.getContactuid();
+            contactUserEntity = userEntityRespostity.findByUid(contactUserUid);
+
+            liveChatContactDTO.setUsername(contactUserEntity.getUsername());
+
+
+            if(userInfoEntityRepository.findByUid(contactUserUid).getPicId() == null) {
+
+                liveChatContactDTO.setAvatarUrl(null);
+
+            } else {
+
+                liveChatContactDTO.setAvatarUrl(this.minioEndpoint + userInfoEntityRepository.findByUid(contactUserUid).getPicId());
+            }
+
+            List<Integer> uidList = new ArrayList<>();
+            uidList.add(selfUid);
+            uidList.add(contactUserUid);
+
+            List<PmEntity> pmEntityList = pmEntityRepository.findByFromuidInAndTouidInOrderByPmidDesc(uidList, uidList);
+
+            if(pmEntityList.size() == 0){
+
+                liveChatContactDTO.setUnReadMsgNum(0);
+                liveChatContactDTO.setRecentMsg(null);
+
+            } else {
+
+                Integer recentPmid = pmEntityList.get(0).getPmid();
+                liveChatContactDTO.setRecentMsg(pmContentEntityRepository.findByPmid(recentPmid).getContent());
+
+                List<PmEntity> pmTest = pmEntityRepository.findAllUnReadbyUid(selfUid, contactUserUid);
+                liveChatContactDTO.setUnReadMsgNum(pmTest.size());
+
+
+            }
+
+            liveChatContactDTOList.add(liveChatContactDTO);
+        }
+
+        return liveChatContactDTOList;
     }
 }

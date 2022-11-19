@@ -43,57 +43,31 @@
       <div class="contacts">
         <i class="fas fa-bars fa-2x"></i>
         <h2>Contacts</h2>
-        <div class="contact">
-          <div class="pic rogers"></div>
-          <div class="badge">14</div>
-          <div class="name">Steve Rogers</div>
-          <div class="message">That is America's ass 🇺🇸🍑</div>
-        </div>
-        <div class="contact">
-          <div class="pic stark"></div>
-          <div class="name">Tony Stark</div>
-          <div class="message">
-            Uh, he's from space, he came here to steal a necklace from a wizard.
+
+        <a th:each="chatContact:${chatContactList}" th:href="'/chat?user=' + ${chatContact.username}">
+          <div class="contact">
+            <div class="pic" th:styleappend="${chatContact.avatarUrl ne null}? 'background-image: url(' + ${chatContact.avatarUrl} + ')':'background-image: url(/images/avatar.jpg)'"></div>
+            <div class="badge" th:if="${chatContact.unReadMsgNum gt 0}" th:text="${chatContact.unReadMsgNum}"></div>
+            <div class="name" th:text="${chatContact.username}"></div>
+            <div class="message" th:text="${chatContact.recentMsg}"></div>
           </div>
-        </div>
-        <div class="contact">
-          <div class="pic banner"></div>
-          <div class="badge">1</div>
-          <div class="name">Bruce Banner</div>
-          <div class="message">There's an Ant-Man *and* a Spider-Man?</div>
-        </div>
-        <div class="contact">
-          <div class="pic thor"></div>
-          <div class="name">Thor Odinson</div>
-          <div class="badge">3</div>
-          <div class="message">I like this one</div>
-        </div>
-        <div class="contact">
-          <div class="pic danvers"></div>
-          <div class="badge">2</div>
-          <div class="name">Carol Danvers</div>
-          <div class="message">Hey Peter Parker, you got something for me?</div>
-        </div>
+        </a>
+
+
       </div>
       <!-- the header part should be a div -->
       <div class="chat">
         <!-- //header -->
         <div class="contact bar">
-          <div class="pic stark"></div>
+          <div class="pic" th:styleappend="${currentContact.avatarUrl ne null}? 'background-image: url(' + ${currentContact.avatarUrl} + ')':'background-image: url(/images/avatar.jpg)'">></div>
           <div
             class="name"
             id="currentContact"
-            th:text="${currentContact}"
+            th:text="${currentContact.username}"
           ></div>
-          <div class="seen">Today at 12:56</div>
         </div>
         <!-- header -->
         <div class="messages" id="chat">
-          <div class="time">Today at 11:41</div>
-
-          <div class="message self">DEMO1</div>
-
-          <div class="message sender">DEMO2</div>
 
           <div th:each="chatMsg:${chatMsgList}">
             <div th:if="${chatMsg.fromUser} eq ${currentUser.username}">
@@ -107,11 +81,6 @@
             <div id="message"></div>
           </div>
 
-          <div class="message sender">
-            <div class="typing typing-1"></div>
-            <div class="typing typing-2"></div>
-            <div class="typing typing-3"></div>
-          </div>
         </div>
         <div class="input">
           <i class="fas fa-camera"></i><i class="far fa-laugh-beam"></i>
@@ -150,7 +119,7 @@
 
     //连接成功建立的回调方法
     websocket.onopen = function (event) {
-      setMessageInnerHTML("open");
+      console.log("open");
     };
 
     //接收到消息的回调方法
@@ -160,7 +129,7 @@
 
     //连接关闭的回调方法
     websocket.onclose = function () {
-      setMessageInnerHTML("close");
+      console.log("close");
     };
 
     //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
@@ -177,13 +146,21 @@
     selfNode.classList.add("message self");
 
     function receiveMsg(msg) {
-      var senderNode = document.createElement("div");
-      senderNode.classList.add("message");
-      senderNode.classList.add("sender");
+      let currentUser = document.getElementById("currentContact");
 
-      senderNode.textContent = msg;
+      if(msg.startsWith(currentUser.textContent)){
 
-      document.getElementById("chat").appendChild(senderNode);
+        var senderNode = document.createElement("div");
+        senderNode.classList.add("message");
+        senderNode.classList.add("sender");
+
+
+        senderNode.textContent = msg;
+
+
+        document.getElementById("chat").appendChild(senderNode);
+
+      }
 
       // document.getElementById('message').innerHTML += innerHTML + '<br/>';
     }

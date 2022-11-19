@@ -10,6 +10,7 @@ import javax.persistence.Column;
 public class UserProfileDTO {
 
     private Integer uid;
+    private String username;
     private String gender;
     private String avatarUrl;
     private String hobbies;

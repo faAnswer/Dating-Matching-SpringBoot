@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tecky.nohorny.dto.CurrentUserDTO;
+import org.tecky.nohorny.dto.UserProfileDTO;
+import org.tecky.nohorny.livechat.dto.LiveChatContactDTO;
 import org.tecky.nohorny.livechat.dto.LiveChatMsgDTO;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
 import org.tecky.nohorny.services.intf.IUserService;
@@ -44,11 +46,20 @@ public class ChatViewController {
         }
 
         model.addAttribute("currentUser", currentUserDTO);
-        model.addAttribute("currentContact", user);
+
+        UserProfileDTO currentContactProfileDTO;
+
+        currentContactProfileDTO = iUserService.getProfile(user);
+
+        model.addAttribute("currentContact", currentContactProfileDTO);
 
 
         List<LiveChatMsgDTO> liveChatMsgDTOList = iLiveChatService.getAllMsg(user, authentication);
         model.addAttribute("chatMsgList", liveChatMsgDTOList);
+
+
+        List<LiveChatContactDTO> liveChatContactDTOList = iLiveChatService.getAllContacts(authentication);
+        model.addAttribute("chatContactList", liveChatContactDTOList);
 
         return "chat";
     }

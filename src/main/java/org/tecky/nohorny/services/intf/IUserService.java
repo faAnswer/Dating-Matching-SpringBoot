@@ -15,4 +15,7 @@ public interface IUserService {
 
     public UserProfileDTO getProfile(Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
+    public UserProfileDTO getProfile(String username) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+
+
 }
