@@ -127,7 +127,6 @@
             <use xlink:href="#bootstrap"></use>
         </svg>
         </a>
-
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" id="profileid">
             <div class="logotext">
                 <img src="logo.png" alt="logo" srcset="" id="logo"/>Nohorny
@@ -142,6 +141,8 @@
         </ul>
     </header>
 </div>
+
+
 
 <div class="form-container" id="background-container">
     <form
@@ -176,7 +177,7 @@
                         <select name="gender" class="form">
                             <option value="M" th:selected="${profile.gender eq 'M'}">Male</option>
                             <option value="F" th:selected="${profile.gender eq 'F'}">Female</option>
-                            <option value="O" th:selected="${profile.gender eq 'O'}">Other</option>
+                            <option value="O" th:selected="${profile.gender eq 'M'}">Other</option>
                         </select>
                     </label>
                 </td>

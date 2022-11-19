@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.tecky.nohorny.dto.CurrentUserDTO;
 import org.tecky.nohorny.dto.UserProfileDTO;
 import org.tecky.nohorny.services.intf.IUserService;
 
@@ -18,9 +19,24 @@ public class ProfileController {
     @Autowired
     IUserService userService;
 
+    @Autowired
+    IUserService iUserService;
 
     @GetMapping("/profile")
     public String profile(Model model, Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        CurrentUserDTO currentUserDTO;
+        if(authentication == null){
+
+            currentUserDTO = iUserService.getCurrentUser();
+
+        } else {
+
+            currentUserDTO = iUserService.getCurrentUser(authentication);
+        }
+
+        model.addAttribute("currentUser", currentUserDTO);
+
 
         UserProfileDTO userProfileDTO = userService.getProfile(authentication);
 

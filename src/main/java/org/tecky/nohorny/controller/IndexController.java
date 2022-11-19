@@ -33,7 +33,7 @@ public class IndexController {
     @Autowired
     IUserService iUserService;
 
-    @GetMapping("/index")
+    @GetMapping({"/index", "/"})
     public String index(Model model, Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         CurrentUserDTO currentUserDTO;
@@ -85,7 +85,7 @@ public class IndexController {
 
         response.addHeader("Set-Cookie", responseEntity.getHeaders().get("Set-Cookie").get(0));
 
-        return "redirect:/index.html";
+        return "redirect:/index";
 
     }
 }

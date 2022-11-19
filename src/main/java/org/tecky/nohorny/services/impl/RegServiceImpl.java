@@ -7,8 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
+import org.tecky.nohorny.entities.UserInfoEntity;
 import org.tecky.nohorny.entities.UserRoleEntity;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
+import org.tecky.nohorny.mapper.UserInfoEntityRepository;
 import org.tecky.nohorny.mapper.UserRoleEntityRepository;
 import org.tecky.nohorny.services.intf.IRegService;
 
@@ -24,6 +26,8 @@ public class RegServiceImpl implements IRegService{
     @Autowired
     UserRoleEntityRepository userRoleEntityRepository;
 
+    @Autowired
+    UserInfoEntityRepository userInfoEntityRepository;
 
     @Override
     public ResponseEntity<JSONResponse<Object>> regNewUser(UserEntity userEntity) {
@@ -49,11 +53,19 @@ public class RegServiceImpl implements IRegService{
 
         UserRoleEntity userRoleEntity = new UserRoleEntity();
 
-        userRoleEntity.setUid(userEntityRespostity.findByUsername(userEntity.getUsername()).getUid());
+        Integer uid = userEntityRespostity.findByUsername(userEntity.getUsername()).getUid();
+
+        userRoleEntity.setUid(uid);
 
         userRoleEntity.setRoleid(2);
 
         userRoleEntityRepository.saveAndFlush(userRoleEntity);
+
+        UserInfoEntity userInfoEntity = new UserInfoEntity();
+
+        userInfoEntity.setUid(uid);
+        userInfoEntityRepository.saveAndFlush(userInfoEntity);
+
 
         //userRoleEntityRepository
 
