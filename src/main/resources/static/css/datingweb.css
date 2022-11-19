@@ -1,15 +1,12 @@
+.containercontroller {
+  display: flex;
+  justify-content: left;
+  align-items: left;
 
-
-.containercontroller{
-display: flex;
-justify-content:left;
-align-items: left;
-
-margin-top: 10rem;
-
+  margin-top: 10rem;
 }
 
-.form-container{
+.form-container {
   font-family: Monaco;
   height: 500px;
   width: 400px;
@@ -17,32 +14,29 @@ margin-top: 10rem;
   flex-direction: column;
   justify-content: space-between;
   padding: 30px;
-  background-color: rgb(255, 229, 188,0.5);
+  background-color: rgb(255, 229, 188, 0.5);
   border-radius: 5px;
 
   /* border: 2px solid #000; */
   /* border-radius: 50px; */
-
 }
 
-.Age-select{
+.Age-select {
   display: flex;
 }
 
-.findpartnerbtn{
-  background-color: burlywood;	
-  
+.findpartnerbtn {
+  background-color: burlywood;
 }
 
-.container-item{
-  font-family:Monaco;
+.container-item {
+  font-family: Monaco;
   font-size: 1.2rem;
-  background-color: rgb(255, 255, 255,0.2);
+  /* background-color: rgb(255, 255, 255,0.2); */
   border-radius: 10%;
 }
 
-
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   display: none;
 }
 .select .drop-container > div {
@@ -50,21 +44,20 @@ margin-top: 10rem;
   border-radius: 10px;
 }
 
-.findpartnerbtn{
+.findpartnerbtn {
   background-color: rgba(228, 187, 133, 0.4);
   border: none;
   width: auto;
 }
 
-#headbar{
+#headbar {
   display: contents;
-
 }
 
-#logo{
-  width:5em;
+#logo {
+  width: 5em;
 }
 
-.bgcolor{
+.bgcolor {
   /* background-color: rgba(255, 255, 255, 0.5); */
 }

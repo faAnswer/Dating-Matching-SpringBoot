@@ -5,19 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      #chatboxContainer {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+      }
+      #chatboxContainer iframe {
+        transform: scale(0);
+        transition: transform 0.2s ease-in-out;
+      }
+      #chatboxContainer.active iframe {
+        transform: scale(1);
+      }
+    </style>
   </head>
   <body>
+    <div id="chatboxContainer">
+      <iframe src="http://47.92.137.0:9999/chat?user=System"></iframe>
+      <button onclick="openChatbox()">open</button>
+    </div>
     <script>
-      async function main() {
-        let promise = fetch("/");
-        console.log(promise);
-
-        console.log("show loading circle");
-
-        let res = await promise;
-        console.log(res);
+      function openChatbox() {
+        chatboxContainer.classList.toggle("active");
       }
-      main();
     </script>
   </body>
 </html>

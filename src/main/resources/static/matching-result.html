@@ -40,6 +40,7 @@
         width: var(--image-size);
         height: var(--image-size);
         background-size: cover;
+        position: ;
       }
 
       .person {
@@ -63,7 +64,7 @@
       }
 
       .msheader {
-        background-color: rgb(164, 179, 193, 0.5);
+        /* background-color: rgb(164, 179, 193, 0.5); */
         border-radius: 50ox;
       }
 
@@ -78,6 +79,17 @@
         display: flex;
         justify-content: center;
       }
+
+      .UL_1 {
+        margin: 0 auto;
+      }
+      .UL_1 li {
+        margin: 0 10px;
+      }
+
+      #logo {
+        width: 5rem;
+      }
     </style>
   </head>
   <body>
@@ -85,6 +97,8 @@
       <header
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom msheader"
       >
+        <div><img src="logo.png" alt="logo" srcset="" id="logo" />Nohorny</div>
+
         <a>
           <svg
             class="bi me-2"
@@ -97,7 +111,9 @@
           </svg>
         </a>
 
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <ul
+          class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 UL_1"
+        >
           <li><a href="index.html" class="container-item">Home</a></li>
           <li>
             <a href="profilesetting.html" class="container-item"
@@ -127,11 +143,13 @@
               <div class="d-flex justify-content-center profile">
                 <div class="border-Class">
                   <div class="person-avatar"></div>
-                  <div class="d-flex">
+                  <div>
                     <div class="person-id"></div>
                     <div class="person-name"></div>
-                    <!-- <button class="view-btn">View Profile</button> -->
+                    <div class="person-desc"></div>
+                    <div class="person-age"></div>
                   </div>
+                  <!-- <button class="view-btn">View Profile</button> -->
                 </div>
                 <div style="position: relative"></div>
               </div>
@@ -168,6 +186,7 @@
           </div>
           <div class="person-name"></div>
           <div class="person-desc"></div>
+          <div class="person-age"></div>
         </div>
       </dialog>
 
@@ -220,6 +239,9 @@
           // console.log(node.querySelector(".person-id"));
           node.querySelector(".person-id").textContent = person.id;
           node.querySelector(".person-name").textContent = person.name;
+          node.querySelector(".person-desc").textContent = person.desc;
+          //console.log(person.age);
+          node.querySelector(".person-age").textContent = person.age;
           node.querySelector(
             ".person-avatar"
           ).style.backgroundImage = `url(${person.image})`;
