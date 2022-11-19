@@ -5,5 +5,6 @@ import org.tecky.nohorny.entities.UserDailyMatchEntity;
 
 public interface UserDailyMatchEntityRepository extends JpaRepository<UserDailyMatchEntity, String> {
 
+    public UserDailyMatchEntity findByUid(Integer uid);
 
 }

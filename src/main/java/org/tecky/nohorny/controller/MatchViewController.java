@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tecky.nohorny.dto.CurrentUserDTO;
 import org.tecky.nohorny.dto.UserProfileDTO;
@@ -17,6 +18,7 @@ import org.tecky.nohorny.services.intf.IUserService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -26,7 +28,14 @@ public class MatchViewController {
     IUserService iUserService;
 
     @GetMapping("/match")
-    public String chat(Model model, Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public String match(@RequestBody Map<String, String> mapMatch , Model model, Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+
+
+
+
+
+
 
 
         return "match";
