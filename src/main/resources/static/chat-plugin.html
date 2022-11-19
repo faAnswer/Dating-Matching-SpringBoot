@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+  </head>
+  <body>
     <style>
       #chatboxContainer {
         position: fixed;
@@ -22,16 +24,11 @@
         transform: scale(1);
       }
     </style>
-  </head>
-  <body>
     <div id="chatboxContainer">
       <iframe src="/chat.html?user=System"></iframe>
-      <button onclick="openChatbox()">open</button>
+      <button onclick="chatboxContainer.classList.toggle('active')">
+        open
+      </button>
     </div>
-    <script>
-      function openChatbox() {
-        chatboxContainer.classList.toggle("active");
-      }
-    </script>
   </body>
 </html>
