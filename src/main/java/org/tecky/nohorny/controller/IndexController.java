@@ -56,20 +56,6 @@ public class IndexController {
     @GetMapping("/oauth/login")
     public String oauthLogin(@RequestParam Map<String, String> requestParam, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 
-//        if(requestParam.get("oauth") == null){
-//
-//            return "index";
-//        }
-//
-//        Optional<Cookie> cookie = Arrays
-//                .stream(request.getCookies())
-//                .filter(element -> element.getName().equals("AccessToken"))
-//                .findFirst();
-//
-//        if(cookie.isEmpty()){
-//
-//            return "index";
-//        }
 
         log.info("index controller");
 
