@@ -7,6 +7,7 @@ import org.tecky.nohorny.entities.PmContentEntity;
 import org.tecky.nohorny.entities.PmEntity;
 import org.tecky.nohorny.entities.PmStatusEntity;
 import org.tecky.nohorny.entities.UserEntity;
+import org.tecky.nohorny.livechat.dto.LiveChatMsgDTO;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
 import org.tecky.nohorny.mapper.*;
 
@@ -31,6 +32,7 @@ public class LiveChatServiceImpl implements ILiveChatService {
 
     @Autowired
     UserEntityRespostity userEntityRespostity;
+
 
     private int messageType;
 
@@ -112,5 +114,55 @@ public class LiveChatServiceImpl implements ILiveChatService {
 
             return userList;
         }
+    }
+
+    @Override
+    public List<LiveChatMsgDTO> getAllMsg(String contactUser, Authentication authentication) {
+
+        List<LiveChatMsgDTO> liveChatMsgDTOList = new ArrayList<>();
+
+        String selfUserName = authentication.getName();
+
+        UserEntity self = userEntityRespostity.findByUsername(selfUserName);
+        UserEntity sender = userEntityRespostity.findByUsername(contactUser);
+
+        List<Integer> uidList = new ArrayList<>();
+
+        uidList.add(sender.getUid());
+        uidList.add(self.getUid());
+
+        List<PmEntity> pmEntityList = pmEntityRepository.findByFromuidInAndTouidIn(uidList, uidList);
+
+        for(PmEntity pm : pmEntityList){
+
+            Integer pmId = pm.getPmid();
+            LiveChatMsgDTO liveChatMsgDTO = new LiveChatMsgDTO();
+
+            if(pm.getFromuid() == self.getUid()){
+
+
+                liveChatMsgDTO.setFromUser(selfUserName);
+                liveChatMsgDTO.setToUser(contactUser);
+                liveChatMsgDTO.setMsg(pmContentEntityRepository.findByPmid(pmId).getContent());
+
+            } else {
+
+                liveChatMsgDTO.setFromUser(contactUser);
+                liveChatMsgDTO.setToUser(selfUserName);
+                liveChatMsgDTO.setMsg(pmContentEntityRepository.findByPmid(pmId).getContent());
+            }
+
+            liveChatMsgDTOList.add(liveChatMsgDTO);
+
+            PmStatusEntity pmStatusEntity = pmStatusEntityRepository.findByPmidAndIsreadIs(pmId, 0);
+
+            if(pmStatusEntity != null){
+
+                pmStatusEntity.setIsread(1);
+                pmStatusEntityRepository.saveAndFlush(pmStatusEntity);
+
+            }
+        }
+        return liveChatMsgDTOList;
     }
 }

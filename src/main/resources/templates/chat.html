@@ -91,21 +91,30 @@
       <div class="time">
         Today at 11:41
       </div>
-      <div class="message sender">
-        Hey, man! What's up, Mr Stark? 👋
-      </div>
-      <div class="message sender">
-        Kid, where'd you come from? 
-      </div>
+
       <div class="message self">
-        Field trip! 🤣
+        DEMO1
       </div>
-      <div class="message self">
-        Uh, what is this guy's problem, Mr. Stark? 🤔
-      </div>
+
       <div class="message sender">
-        Uh, he's from space, he came here to steal a necklace from a wizard.
+        DEMO2
       </div>
+
+      <div th:each="chatMsg:${chatMsgList}">
+
+        <div th:if="${chatMsg.fromUser} eq ${currentUser.username}">
+          <div class="message self" th:text="${chatMsg.msg}">
+          </div>
+        </div>
+
+        <div th:unless="${chatMsg.fromUser} eq ${currentUser.username}">
+          <div class="message sender" th:text="${chatMsg.msg}">
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="message sender">
         <div class="typing typing-1"></div>
         <div class="typing typing-2"></div>
