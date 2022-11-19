@@ -44,6 +44,7 @@ public class ChatViewController {
         }
 
         model.addAttribute("currentUser", currentUserDTO);
+        model.addAttribute("currentContact", user);
 
 
         List<LiveChatMsgDTO> liveChatMsgDTOList = iLiveChatService.getAllMsg(user, authentication);
