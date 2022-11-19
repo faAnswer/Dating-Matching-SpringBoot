@@ -213,21 +213,27 @@
         // let json = await res.json();
         // if (json.error) {
         //   // todo show error
+        //   Swal.fire({
+        //     icon: "error",
+        //     title: "Failed to load matching result",
+        //     text: json.error,
+        //   });
         //   return;
         // }
         // let items = json.data;
 
         let items = [
-          { username: 1, name: "a", image: "https://picsum.photos/seed/1/200" },
-          { username: 2, name: "b", image: "https://picsum.photos/seed/2/200" },
-          { username: 3, name: "c", image: "https://picsum.photos/seed/3/200" },
+          // { username: 1, name: "a", image: "https://picsum.photos/seed/1/200" },
+          // { username: 2, name: "b", image: "https://picsum.photos/seed/2/200" },
+          // { username: 3, name: "c", image: "https://picsum.photos/seed/3/200" },
         ];
-        for (let i = 4; i <= 6; i++) {
+        for (let i = 1; i <= 6; i++) {
           items.push({
             username: "admin",
             name: "random",
             image: `https://picsum.photos/seed/${i}/200`,
             desc: "hobbies",
+            age: "123",
           });
         }
 
@@ -271,5 +277,6 @@
 
       // console.log(heartlogo);
     </script>
+    <script src="chat-plugin.js"></script>
   </body>
 </html>
