@@ -137,8 +137,7 @@
         <input placeholder="Type your message here!" type="text" id="text" />
       </label>
 
-      <button class="fas fa-microphone" onclick="send()"></button>
-
+      <button class="fas fa-paper-plane" onclick="send()"></button>
 
     </div>
   </div>
@@ -191,12 +190,6 @@
   }
 
 
-
-  var selfNode = document.createElement("div");
-  selfNode.classList.add("message self");
-
-
-
   function receiveMsg(msg){
 
     var senderNode = document.createElement("div");
@@ -232,9 +225,12 @@
     console.log(currentUser)
     var message = currentUser.textContent + ":" + document.getElementById('text').value;
     websocket.send(message);
-    
+
 
     message.textContent = "";
+    document.querySelector('#text').value="";
   }
+
+
 </script>
 </html>
