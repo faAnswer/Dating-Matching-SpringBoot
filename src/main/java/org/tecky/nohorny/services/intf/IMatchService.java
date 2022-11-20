@@ -15,5 +15,6 @@ public interface IMatchService {
 
     public void matching(Map<String, String> map, Authentication authentication);
 
+    public List<UserProfileDTO> getMockUser(int[] uidArr, Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
 }

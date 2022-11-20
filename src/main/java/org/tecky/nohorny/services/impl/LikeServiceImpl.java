@@ -3,11 +3,16 @@ package org.tecky.nohorny.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.tecky.nohorny.entities.UserContactEntity;
 import org.tecky.nohorny.entities.UserLikeEntity;
+import org.tecky.nohorny.livechat.services.LiveChatWebSocketHandler;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
+import org.tecky.nohorny.mapper.UserContactEntityRepository;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
 import org.tecky.nohorny.mapper.UserLikeEntityRepository;
 import org.tecky.nohorny.services.intf.ILikeService;
+
+import java.util.*;
 
 @Service
 public class LikeServiceImpl implements ILikeService {
@@ -20,6 +25,12 @@ public class LikeServiceImpl implements ILikeService {
 
     @Autowired
     UserEntityRespostity userEntityRespostity;
+
+    @Autowired
+    LiveChatWebSocketHandler liveChatWebSocketHandler;
+
+    @Autowired
+    UserContactEntityRepository userContactEntityRepository;
 
     @Override
     public boolean checkLike(Authentication authentication, String username) {
@@ -58,9 +69,7 @@ public class LikeServiceImpl implements ILikeService {
 
             if(checkLiked != null){
 
-                liveChatInvite(authentication.getName(), username);
                 liveChatInvite(username, authentication.getName());
-
             }
 
             return true;
@@ -76,13 +85,35 @@ public class LikeServiceImpl implements ILikeService {
         return userEntityRespostity.findByUsername(username).getUid();
     }
 
-    private void liveChatInvite(String userName, String msgReceiverName){
+    private void liveChatInvite(String userName, String contactUserName){
 
-        String msg = "You pressed the Like button of " + userName + " also to you pressed the receive button, ";
+        Map<String, String> pairUser = new HashMap<>();
 
-        msg = msg + "let invite the other to have a live chat !";
+        pairUser.put(userName, contactUserName);
+        pairUser.put(contactUserName, userName);
+        Set<String> keySet = pairUser.keySet();
 
-        iLiveChatService.sendOfflineMessage("System", msgReceiverName, msg);
+        for(String key: keySet){
+
+            String msg = "You pressed the Like button of " + pairUser.get(key) + " also to you pressed the receive button, ";
+            msg = msg + "let invite the other to have a live chat !";
+
+            liveChatWebSocketHandler.sendMessageToUser("System", key, msg);
+
+            UserContactEntity userContact = new UserContactEntity();
+
+            int selfUid = userEntityRespostity.findByUsername(key).getUid();
+            int contactUid = userEntityRespostity.findByUsername(pairUser.get(key)).getUid();
+
+            userContact.setUid(selfUid);
+            userContact.setContactuid(contactUid);
+            userContact.setStatuscode(1);
+            userContactEntityRepository.saveAndFlush(userContact);
+
+            String msgForPair = "Hello !";
+
+            liveChatWebSocketHandler.sendMessageToUser(key, pairUser.get(key), msgForPair);
+
+        }
     }
-
 }

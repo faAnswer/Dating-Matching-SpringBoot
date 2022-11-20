@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.tecky.nohorny.dto.CurrentUserDTO;
 import org.tecky.nohorny.dto.UserProfileDTO;
 import org.tecky.nohorny.entities.UserDailyMatchEntity;
+import org.tecky.nohorny.entities.UserEntity;
 import org.tecky.nohorny.entities.UserInfoEntity;
 import org.tecky.nohorny.entities.UserMatchEntity;
 import org.tecky.nohorny.mapper.UserDailyMatchEntityRepository;
@@ -46,29 +47,50 @@ public class MatchServiceImpl implements IMatchService {
 
         UserDailyMatchEntity userDailyMatchEntity = userDailyMatchEntityRepository.findByUid(uid);
 
+        if(userDailyMatchEntity == null){
+
+            userDailyMatchEntity = new UserDailyMatchEntity();
+
+            userDailyMatchEntity.setUid(uid);
+            userDailyMatchEntity.setIsmatch(0);
+
+            userDailyMatchEntityRepository.saveAndFlush(userDailyMatchEntity);
+
+        }
+
         return userDailyMatchEntity.getIsmatch() == 0;
     }
+
 
     @Override
     public List<UserProfileDTO> getMatchUser(Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         List<UserProfileDTO> currentUserDTOList = new ArrayList<>();
 
-
         Integer selfUid = userEntityRespostity.findByUsername(authentication.getName()).getUid();
 
-
         List<UserMatchEntity> userMatchEntityList = userMatchEntityRepository.findByUid(selfUid);
-
 
         for(UserMatchEntity userMatchEntity: userMatchEntityList){
 
             UserInfoEntity userInfoEntity = userInfoEntityRepository.findByUid(userMatchEntity.getMatchuid());
+            UserEntity userEntity = userEntityRespostity.findByUid(userMatchEntity.getMatchuid());
 
+            List<Object> entitiesList = new ArrayList<>();
 
-            UserProfileDTO userProfileDTO = ConversionUtil.convertS2S(UserProfileDTO.class, userInfoEntity);
+            entitiesList.add(userInfoEntity);
+            entitiesList.add(userEntity);
 
-            userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+            UserProfileDTO userProfileDTO = ConversionUtil.convertM2S(UserProfileDTO.class, entitiesList);
+
+            if(userInfoEntity.getPicId() == null) {
+
+                userProfileDTO.setAvatarUrl(null);
+
+            } else {
+
+                userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+            }
 
             currentUserDTOList.add(userProfileDTO);
 
@@ -106,5 +128,47 @@ public class MatchServiceImpl implements IMatchService {
         userDailyMatchEntity.setIsmatch(1);
 
         userDailyMatchEntityRepository.saveAndFlush(userDailyMatchEntity);
+    }
+
+    @Override
+    public List<UserProfileDTO> getMockUser(int[] uidArr, Authentication authentication) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        List<UserProfileDTO> currentUserDTOList = new ArrayList<>();
+
+        Integer selfUid = userEntityRespostity.findByUsername(authentication.getName()).getUid();
+
+        List<UserMatchEntity> userMatchEntityList = userMatchEntityRepository.findByUid(selfUid);
+
+        for(int matchUid: uidArr){
+
+            if(matchUid == selfUid){
+
+                continue;
+            }
+
+            UserInfoEntity userInfoEntity = userInfoEntityRepository.findByUid(matchUid);
+            UserEntity userEntity = userEntityRespostity.findByUid(matchUid);
+
+            List<Object> entitiesList = new ArrayList<>();
+
+            entitiesList.add(userInfoEntity);
+            entitiesList.add(userEntity);
+
+            UserProfileDTO userProfileDTO = ConversionUtil.convertM2S(UserProfileDTO.class, entitiesList);
+
+            if(userInfoEntity.getPicId() == null) {
+
+                userProfileDTO.setAvatarUrl(null);
+
+            } else {
+
+                userProfileDTO.setAvatarUrl(minioEndpoint + userInfoEntity.getPicId());
+            }
+
+
+            currentUserDTOList.add(userProfileDTO);
+        }
+
+        return currentUserDTOList;
     }
 }

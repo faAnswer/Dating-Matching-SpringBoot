@@ -1,285 +1,330 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Matching Result</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-      crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+            crossorigin="anonymous"
     />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/common.css"/>
     <style>
-      body {
-        background-image: url("images/wallpaper3.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        height: 10rem;
-      }
-      dialog {
-        z-index: 1;
-      }
-      .photo-grid {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        width: calc(var(--image-size) * 3);
-        margin: auto;
-      }
-      #list {
-        --image-size: 320px;
-      }
-      .person-avatar {
-        width: var(--image-size);
-        height: var(--image-size);
-        background-size: cover;
-        position: ;
-      }
+        body {
+            background-image: url("images/wallpaper3.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 10rem;
+        }
 
-      .person {
-        position: relative;
-        margin: 0.6rem;
-        color: white;
-      }
+        dialog {
+            z-index: 1;
+        }
 
-      .heartlogo {
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        /* width: 3rem; */
-        /* border-color: aliceblue; */
-        color: red;
-        background: none;
-        border: 0;
-        font-size: 2rem;
-        padding: 0 0.5rem;
-        z-index: 999;
-      }
+        .photo-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: calc(var(--image-size) * 3);
+            margin: auto;
+        }
 
-      .msheader {
-        /* background-color: rgb(164, 179, 193, 0.5); */
-        border-radius: 50ox;
-      }
+        #list {
+            --image-size: 320px;
+        }
 
-      .border-Class {
-        border: 1px solid rgba(131, 179, 215, 0.802);
-        padding: 5rem;
-        background-color: rgb(165, 190, 212, 0.5);
-        height: 50em;
-        border-radius: 10px;
-      }
+        .person-avatar {
+            width: var(--image-size);
+            height: var(--image-size);
+            background-size: cover;
+            position: ;
+        }
 
-      .carouselbox {
-        display: flex;
-        justify-content: center;
-      }
+        .person {
+            position: relative;
+            margin: 0.6rem;
+            color: white;
+        }
 
-      .UL_1 {
-        margin: 0 auto;
-      }
-      .UL_1 li {
-        margin: 0 50px;
-      }
+        .heartlogo {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            /* width: 3rem; */
+            /* border-color: aliceblue; */
+            color: red;
+            background: none;
+            border: 0;
+            font-size: 2rem;
+            padding: 0 0.5rem;
+            z-index: 999;
+        }
 
-      #logo {
-        width: 4rem;
-      }
+        .msheader {
+            /* background-color: rgb(164, 179, 193, 0.5); */
+            border-radius: 50 ox;
+        }
+
+        .border-Class {
+            border: 1px solid rgba(131, 179, 215, 0.802);
+            padding: 5rem;
+            background-color: rgb(165, 190, 212, 0.5);
+            height: 50em;
+            border-radius: 10px;
+        }
+
+        .carouselbox {
+            display: flex;
+            justify-content: center;
+        }
+
+        .UL_1 {
+            margin: 0 auto;
+        }
+
+        .UL_1 li {
+            margin: 0 50px;
+        }
+
+        #logo {
+            width: 4rem;
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom msheader"
-      >
-        <div><img src="logo.png" alt="logo" srcset="" id="logo" />Nohorny</div>
+</head>
+<body>
+<div class="container">
+    <header
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom msheader"
+    >
+        <div><img src="logo.png" alt="logo" srcset="" id="logo"/>Nohorny</div>
 
         <a>
-          <svg
-            class="bi me-2"
-            width="40"
-            height="32"
-            role="img"
-            aria-label="Bootstrap"
-          >
-            <use xlink:href="#bootstrap"></use>
-          </svg>
+            <svg
+                    class="bi me-2"
+                    width="40"
+                    height="32"
+                    role="img"
+                    aria-label="Bootstrap"
+            >
+                <use xlink:href="#bootstrap"></use>
+            </svg>
         </a>
 
         <ul
-          class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 UL_1"
+                class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 UL_1"
         >
-          <li><a href="index.html" class="container-item">Home</a></li>
-          <li>
-            <a href="profilesetting.html" class="container-item"
-              >Profile Setting</a
-            >
-          </li>
-          <li><a href="#" class="container-item">Let's Chat</a></li>
+            <li><a href="index.html" class="container-item">Home</a></li>
+            <li>
+                <a href="profilesetting.html" class="container-item"
+                >Profile Setting</a
+                >
+            </li>
+            <li><a href="#" class="container-item">Let's Chat</a></li>
         </ul>
-      </header>
-    </div>
-    <div class="carouselbox">
-      <div
-        id="carouselExampleControls"
-        class="carousel slide"
-        data-bs-ride="carousel"
-        data-bs-interval="1000000000"
-      >
+    </header>
+</div>
+<div class="carouselbox">
+    <div
+            id="carouselExampleControls"
+            class="carousel slide"
+            data-bs-ride="carousel"
+            data-bs-interval="1000000000"
+    >
         <div class="carousel-inner" id="list">
-          <div class="carousel-item">
+            <div class="carousel-item" th:each="matchUser, status :${matchUserList}" th:classappend="${status.first}? active:''">
 
-            <div class="person mb-3">
-              <!-- <div class="likebtn"> -->
-              <!-- <img class="heartlogo00" hidden src="images/heartlogo.png" /> -->
-              <button class="heartlogo">
-                <i class="bi bi-heart"></i>
-              </button>
-              <!-- </div> -->
-              <div class="d-flex justify-content-center profile">
-                <div class="border-Class">
-                  <div class="person-avatar"></div>
-                  <div>
-                    <div class="person-id"></div>
-                    <div class="person-name"></div>
-                    <div class="person-desc"></div>
-                    <div class="person-age"></div>
-                  </div>
-                  <!-- <button class="view-btn">View Profile</button> -->
+                <div class="person mb-3">
+                    <!-- <div class="likebtn"> -->
+                    <!-- <img class="heartlogo00" hidden src="images/heartlogo.png" /> -->
+
+<!--                    <form>-->
+<!--                        <label>-->
+<!--                            <input name="username" th:value="${matchUser.username}" />-->
+<!--                        </label>-->
+                        <button class="heartlogo" th:onclick="like(this, [[${matchUser.username}]]);">
+                            <i class="bi bi-heart"></i>
+                        </button>
+<!--                    </form>-->
+
+                    <!-- </div> -->
+                    <div class="d-flex justify-content-center profile">
+                        <div class="border-Class">
+                            <div class="person-avatar"
+                                 th:styleappend="${matchUser.avatarUrl ne null}? 'background-image: url(' + ${matchUser.avatarUrl} + ')':'background-image: url(/images/avatar.jpg)'"
+                                ></div>
+                            <div>
+                                <div class="person-id" th:text="${matchUser.uid}" th:styleappend="'display:none;'"></div>
+                                <div class="person-name" th:text="${matchUser.username}"></div>
+                                <div class="person-desc" th:text="${matchUser.hobbies}"></div>
+                                <div class="person-age" th:text="${matchUser.age}"></div>
+                            </div>
+                            <!-- <button class="view-btn">View Profile</button> -->
+                        </div>
+                        <div style="position: relative"></div>
+                    </div>
                 </div>
-                <div style="position: relative"></div>
-              </div>
             </div>
-          </div>
         </div>
 
 
         <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="prev"
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev"
         >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
         </button>
         <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="next"
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="next"
         >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
         </button>
-      </div>
     </div>
+</div>
+<button onclick="">付費即可增加每日配對上限</button>
+<button onclick="">以Core付費</button>
 
-    <div class="container" id="background-container">
-      <dialog id="profile">
+<div class="container" id="background-container">
+    <dialog id="profile">
         <button onclick="profile.open = false">close</button>
         <div>
-          <div class="person-image">
-            <img />
-          </div>
-          <div class="person-name"></div>
-          <div class="person-desc"></div>
-          <div class="person-age"></div>
+            <div class="person-image">
+                <img/>
+            </div>
+            <div class="person-name"></div>
+            <div class="person-desc"></div>
+            <div class="person-age"></div>
         </div>
-      </dialog>
+    </dialog>
 
-      <div class="photo-grid"></div>
-    </div>
+    <div class="photo-grid"></div>
+</div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/js/api.js"></script>
-    <script>
-      let template = list.querySelector(".carousel-item");
-      template.remove();
 
-      async function loadSearchResult() {
-        // let res = await fetch(
-        //   API_ORIGIN + "/matching/result" + location.search
-        // );
-        // checkAPI(res);
-        // let json = await res.json();
-        // if (json.error) {
-        //   // todo show error
-        //   Swal.fire({
-        //     icon: "error",
-        //     title: "Failed to load matching result",
-        //     text: json.error,
-        //   });
-        //   return;
-        // }
-        // let items = json.data;
 
-        let items = [
-          // { username: 1, name: "a", image: "https://picsum.photos/seed/1/200" },
-          // { username: 2, name: "b", image: "https://picsum.photos/seed/2/200" },
-          // { username: 3, name: "c", image: "https://picsum.photos/seed/3/200" },
-        ];
-        for (let i = 1; i <= 6; i++) {
-          items.push({
-            username: "admin",
-            name: "random",
-            image: `https://picsum.photos/seed/${i}/200`,
-            desc: "hobbies",
-            age: "123",
-          });
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"
+></script>
+<script src="/cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/api.js"></script>
+<script>
+    // action="/api/user/like" method="get"
+
+    async function like(node, name){
+
+        let res = await fetch("/api/user/like?username=" + name ,
+            {method:"GET"}
+        ).then((response) => response.json());
+
+        if(res["data"] == "like"){
+
+            node.children[0].className = "bi bi-heart-fill";
+        } else {
+
+            node.children[0].className = "bi bi-heart";
+
         }
 
-        console.log(items);
 
-        for (let person of items) {
-          console.log(person);
-          let node = template.cloneNode(true);
-          // console.log(node);
-          // console.log(node.querySelector(".person-id"));
-          node.querySelector(".person-id").textContent = person.id;
-          node.querySelector(".person-name").textContent = person.name;
-          node.querySelector(".person-desc").textContent = person.desc;
-          //console.log(person.age);
-          node.querySelector(".person-age").textContent = person.age;
-          node.querySelector(
-            ".person-avatar"
-          ).style.backgroundImage = `url(${person.image})`;
-          // node.querySelector(".view-btn").addEventListener("click", () => {
-          //   console.log("view", person);
-          //   profile.open = true;
-          //   profile.querySelector(".person-name").textContent = person.name;
-          //   profile.querySelector("img").src = person.image;
-          //   profile.querySelector(".person-desc").textContent = person.desc;
-          // });
-          node
-            .querySelector(".heartlogo")
-            .addEventListener("click", async () => {
-              console.log("like", person);
-              let res = await fetch(
-                API_ORIGIN + "/api/user/like?username=" + person.username
-              );
-              checkAPI(res);
-              node.querySelector(".heartlogo i").className = "bi bi-heart-fill";
-            });
-          list.appendChild(node);
-        }
-        list.querySelector(".carousel-item").classList.add("active");
-      }
-      loadSearchResult();
+    }
 
-      // console.log(heartlogo);
-    </script>
-    <script src="chat-plugin.js"></script>
-  </body>
+<!--    -->
+//    let template = list.querySelector(".carousel-item");
+//    template.remove();
+//
+//    async function loadSearchResult() {
+//        // let res = await fetch(
+//        //   API_ORIGIN + "/matching/result" + location.search
+//        // );
+//        // checkAPI(res);
+//        // let json = await res.json();
+//        // if (json.error) {
+//        //   // todo show error
+//        //   Swal.fire({
+//        //     icon: "error",
+//        //     title: "Failed to load matching result",
+//        //     text: json.error,
+//        //   });
+//        //   return;
+//        // }
+//        // let items = json.data;
+//
+//        let items = [
+//            // { username: 1, name: "a", image: "https://picsum.photos/seed/1/200" },
+//            // { username: 2, name: "b", image: "https://picsum.photos/seed/2/200" },
+//            // { username: 3, name: "c", image: "https://picsum.photos/seed/3/200" },
+//        ];
+//        for (let i = 1; i <= 6; i++) {
+//            items.push({
+//                username: "admin",
+//                name: "random",
+//                image: `https://picsum.photos/seed/${i}/200`,
+//                desc: "hobbies",
+//                age: "123",
+//            });
+//        }
+//
+//        console.log(items);
+//
+//        for (let person of items) {
+//            console.log(person);
+//            let node = template.cloneNode(true);
+//            // console.log(node);
+//            // console.log(node.querySelector(".person-id"));
+//            node.querySelector(".person-id").textContent = person.id;
+//            node.querySelector(".person-name").textContent = person.name;
+//            node.querySelector(".person-desc").textContent = person.desc;
+//            //console.log(person.age);
+//            node.querySelector(".person-age").textContent = person.age;
+//            node.querySelector(
+//                ".person-avatar"
+//            ).style.backgroundImage = `url(${person.image})`;
+//            // node.querySelector(".view-btn").addEventListener("click", () => {
+//            //   console.log("view", person);
+//            //   profile.open = true;
+//            //   profile.querySelector(".person-name").textContent = person.name;
+//            //   profile.querySelector("img").src = person.image;
+//            //   profile.querySelector(".person-desc").textContent = person.desc;
+//            // });
+//            node
+//                .querySelector(".heartlogo")
+//                .addEventListener("click", async () => {
+//                    console.log("like", person);
+//                    let res = await fetch(
+//                        API_ORIGIN + "/api/user/like?username=" + person.username
+//                    );
+//                    checkAPI(res);
+//                    node.querySelector(".heartlogo i").className = "bi bi-heart-fill";
+//                });
+//            list.appendChild(node);
+//        }
+//        list.querySelector(".carousel-item").classList.add("active");
+//    }
+//
+//    loadSearchResult();
+
+
+
+    // console.log(heartlogo);
+
+
+
+</script>
+<script src="/chat-plugin.js"></script>
+</body>
 </html>

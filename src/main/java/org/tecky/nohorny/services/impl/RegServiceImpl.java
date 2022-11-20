@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.nohorny.dto.JSONResponse;
+import org.tecky.nohorny.entities.UserContactEntity;
 import org.tecky.nohorny.entities.UserEntity;
 import org.tecky.nohorny.entities.UserInfoEntity;
 import org.tecky.nohorny.entities.UserRoleEntity;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
+import org.tecky.nohorny.mapper.UserContactEntityRepository;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
 import org.tecky.nohorny.mapper.UserInfoEntityRepository;
 import org.tecky.nohorny.mapper.UserRoleEntityRepository;
@@ -32,6 +34,9 @@ public class RegServiceImpl implements IRegService{
 
     @Autowired
     ILiveChatService iLiveChatService;
+
+    @Autowired
+    UserContactEntityRepository userContactEntityRepository;
 
     @Override
     public ResponseEntity<JSONResponse<Object>> regNewUser(UserEntity userEntity) {
@@ -78,9 +83,16 @@ public class RegServiceImpl implements IRegService{
 
     private void welcomeMsg(String username){
 
+        UserContactEntity userContact = new UserContactEntity();
+
+        int selfUid = userEntityRespostity.findByUsername(username).getUid();
+
+        userContact.setUid(selfUid);
+        userContact.setContactuid(0);
+        userContact.setStatuscode(1);
+        userContactEntityRepository.saveAndFlush(userContact);
+
         String msg = "Welcome " + username + " !";
         iLiveChatService.sendOfflineMessage("System", username, msg);
     }
-
-
 }

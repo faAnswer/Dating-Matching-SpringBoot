@@ -84,6 +84,7 @@ public class WebSecurityConfig {
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/index");
         http.formLogin().loginPage("/login");
 
+        http.headers().frameOptions().disable();
 
         return http.build();
     }

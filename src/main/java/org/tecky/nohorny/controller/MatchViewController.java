@@ -38,10 +38,12 @@ public class MatchViewController {
         }
 
         List<UserProfileDTO> matchUserList = iMatchService.getMatchUser(authentication);
+        List<UserProfileDTO> mockUserList = iMatchService.getMockUser(new int[]{36, 37, 38}, authentication);
+
+        matchUserList.addAll(mockUserList);
 
         model.addAttribute("matchUserList", matchUserList);
 
         return "match";
     }
 }
-
