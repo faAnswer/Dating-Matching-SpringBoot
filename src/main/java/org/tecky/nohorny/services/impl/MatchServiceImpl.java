@@ -105,10 +105,10 @@ public class MatchServiceImpl implements IMatchService {
         Integer selfUid = userEntityRespostity.findByUsername(authentication.getName()).getUid();
 
         String gender = map.get("gender");
-        String sexual = map.get("sexual");
-        Integer agebottom = Integer.valueOf(map.get("agebottom"));
-        Integer agetop = Integer.valueOf(map.get("agetop"));
-        Integer districtid = Integer.valueOf(map.get("districtid"));
+        String sexual = map.get("LookGender");
+        Integer agebottom = Integer.valueOf(map.get("ageBottom"));
+        Integer agetop = Integer.valueOf(map.get("AgeTop"));
+        Integer districtid = 1;//Integer.valueOf(map.get("districtid"));
 
         List<UserInfoEntity> userInfoEntityList = userInfoEntityRepository.matchingUsers(gender, sexual, agebottom, agetop, districtid, selfUid);
 

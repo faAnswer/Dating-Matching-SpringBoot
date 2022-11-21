@@ -4,6 +4,7 @@ package org.tecky.nohorny.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.faAnswer.jwt.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -24,6 +26,8 @@ import org.tecky.nohorny.dto.JSONResponse;
 import org.tecky.nohorny.entities.UserEntity;
 import org.tecky.nohorny.entities.UserInfoEntity;
 import org.tecky.nohorny.livechat.services.intf.ILiveChatService;
+import org.tecky.nohorny.security.NoHornyUserDetailService;
+import org.tecky.nohorny.security.services.JwtResponseImpl;
 import org.tecky.nohorny.services.intf.ILikeService;
 import org.tecky.nohorny.services.intf.IRegService;
 import org.tecky.nohorny.services.intf.IUserService;
@@ -38,6 +42,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin
 @Slf4j
 public class UserController {
 
@@ -56,6 +61,11 @@ public class UserController {
     @Autowired
     ILiveChatService iLiveChatService;
 
+    @Autowired
+    NoHornyUserDetailService noHornyUserDetailService;
+
+    @Value("${jwt.secret}")
+    private String secret;
     @GetMapping(value = "/like")
     public ResponseEntity<?> like(@RequestParam Map<String, String> userInfo, Authentication authentication) throws Exception {
 
@@ -175,10 +185,7 @@ public class UserController {
 
         //return login(userInfo, session, request, response);
 
-        authenticate(userInfo.get("username"), userInfo.get("password"), request);
-        ResponseEntity<?> responseEntity = JSONResponse.ok(userInfo.get("username"));
-
-        return responseEntity;
+        return authenticate(userInfo.get("username"), userInfo.get("password"), request);
     }
 
     @PostMapping("/login")
@@ -186,15 +193,12 @@ public class UserController {
 
         log.info("authLogin");
 
-        authenticate(userInfo.get("username"), userInfo.get("password"), request);
 
+        return authenticate(userInfo.get("username"), userInfo.get("password"), request);
 
-        ResponseEntity<?> responseEntity = JSONResponse.ok(userInfo.get("username"));
-
-        return responseEntity;
     }
 
-    private void authenticate(String username, String password, HttpServletRequest request) throws Exception {
+    private ResponseEntity<?> authenticate(String username, String password, HttpServletRequest request)  {
         try {
 
             //為了方便我們訪問 SecurityContext 對像, Spring Security 提供了 SecurityContextHolder 類,
@@ -205,14 +209,29 @@ public class UserController {
             UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("ok auth" + username);
+
+
+            UserDetails userDetails = noHornyUserDetailService.loadUserByUsername(username);
+
+            JwtToken jwtToken = new JwtToken(this.secret);
+
+            jwtToken.setPayload("username", userDetails.getUsername());
+            jwtToken.setPayload("authorize", userDetails.getAuthorities());
+
+            JwtResponseImpl token = new JwtResponseImpl(jwtToken.generateToken());
+
+            return new ResponseEntity<>(token, HttpStatus.OK);
 
         } catch (DisabledException e) {
 
-            throw new Exception("USER_DISABLED", e);
+//            throw new Exception("USER_DISABLED", e);
+            return JSONResponse.fail("USER_DISABLED",HttpStatus.BAD_REQUEST);
 
         } catch (BadCredentialsException e) {
 
-            throw new Exception("INVALID_CREDENTIALS", e);
+//            throw new Exception("INVALID_CREDENTIALS", e);
+            return JSONResponse.fail("INVALID_CREDENTIALS",HttpStatus.BAD_REQUEST);
         }
     }
 }

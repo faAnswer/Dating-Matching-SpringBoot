@@ -16,9 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.tecky.nohorny.security.filter.JwtRequestFilter;
 
 import java.util.Arrays;
 
@@ -33,7 +35,8 @@ public class WebSecurityConfig {
     @Autowired
     NoHornyUserDetailService noHornyUserDetailService;
 
-
+    @Autowired
+    JwtRequestFilter jwtRequestFilter;
     @Bean
     public AuthenticationManager authenticationManager() {
 
@@ -57,51 +60,37 @@ public class WebSecurityConfig {
         log.info("FilterChain");
 
         http
-                .cors(withDefaults())
+                .cors().and()
                 .csrf()
                     .disable()
                 .authorizeRequests()
-                    .antMatchers("/chatroom").authenticated()
-                    .antMatchers("/chatroom.html").authenticated()
-                    .antMatchers("/profile").authenticated()
+//                    .antMatchers("/chatroom").authenticated()
+//                    .antMatchers("/chatroom.html").authenticated()
+//                    .antMatchers("/profile").authenticated()
 
                     .antMatchers("/nohorny/**").permitAll()
-                    .antMatchers("/hello").permitAll()
+                    .antMatchers("/hello").authenticated()
                     .antMatchers("/api/user/register").permitAll()
                     .antMatchers("/api/user/login").permitAll()
+                    .antMatchers("/api/match/result").authenticated()
 
-                    .antMatchers("/").permitAll()
                     .antMatchers("/index").permitAll()
                     .antMatchers("/*.css").permitAll()
                     .antMatchers("/**/*.css").permitAll()
                     .antMatchers("/*.js").permitAll()
                     .antMatchers("/**/*.js").permitAll()
                     .antMatchers("/index.html").permitAll()
-                    .antMatchers("/login.html").permitAll()
-                    .anyRequest().permitAll();
+                    .antMatchers("/login.html").permitAll();
+//                    .anyRequest().permitAll();
 
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/index");
-        http.formLogin().loginPage("/login");
+        //http.formLogin().loginPage("/login");
 
         http.headers().frameOptions().disable();
 
         return http.build();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
-    }
 }

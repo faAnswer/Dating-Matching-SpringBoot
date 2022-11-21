@@ -2,6 +2,7 @@ package org.tecky.nohorny.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tecky.nohorny.entities.PmEntity;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class HelloController {
 
     @Autowired
@@ -31,15 +33,15 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(Authentication authentication){
 
-        List<Integer> uidList = new ArrayList<>();
-
-        uidList.add(336);
-        uidList.add(337);
-
-        List<LiveChatContactDTO> pmTest = iLiveChatService.getAllContacts(authentication);
-
-
-        PmStatusEntity pmStatusEntity = pmStatusEntityRepository.findByPmidAndIsreadIs(68, 0);
+//        List<Integer> uidList = new ArrayList<>();
+//
+//        uidList.add(336);
+//        uidList.add(337);
+//
+//        List<LiveChatContactDTO> pmTest = iLiveChatService.getAllContacts(authentication);
+//
+//
+//        PmStatusEntity pmStatusEntity = pmStatusEntityRepository.findByPmidAndIsreadIs(68, 0);
 
 
         return "Hello World";
