@@ -3,6 +3,9 @@ package org.tecky.nohorny.services.impl;
 import org.faAnswer.jwt.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.tecky.nohorny.entities.OrderEntity;
@@ -11,6 +14,7 @@ import org.tecky.nohorny.mapper.OrderEntityRepository;
 import org.tecky.nohorny.mapper.UserEntityRespostity;
 import org.tecky.nohorny.services.intf.IPaymentService;
 
+import java.net.URI;
 import java.util.Map;
 
 @Service
@@ -42,6 +46,7 @@ public class PaymentServiceImpl implements IPaymentService {
         orderEntity.setUnitrate(unitrate);
         orderEntity.setQty(qty);
         orderEntity.setTotalsum(totalsum);
+        orderEntity.setIspaid(0);
 
         orderEntityRepository.saveAndFlush(orderEntity);
 
@@ -49,28 +54,25 @@ public class PaymentServiceImpl implements IPaymentService {
     }
 
     @Override
-    public PaymentEntity getPayment(OrderEntity orderEntity, Authentication authentication) {
+    public ResponseEntity<?> getPayment(OrderEntity orderEntity, Authentication authentication) {
 
         JwtToken paymentJWT = new JwtToken(clientSecret);
 
-        paymentJWT
+        String jwt = paymentJWT
                 .setPayload("action", "payment")
+                .setPayload("redirect_uri", "http://47.92.137.0:9999/api/payment/endpoint")
                 .setPayload("client_id", "nohorny")
                 .setPayload("totalsum", orderEntity.getTotalsum())
-                .setPayload("orderid", orderEntity.getUid());
+                .setPayload("orderid", orderEntity.getUid()).generateToken();
 
+        HttpHeaders headers = new HttpHeaders();
 
+        headers.setLocation(URI.create("http://47.92.137.0:9001/api/payment/invoicing"));
 
+        headers.add(HttpHeaders.SET_COOKIE, "PaymentAuth=" + jwt);
 
+        ResponseEntity<?> responseEntity = new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
 
-
-
-        JwtToken
-
-
-
-
-
-        return null;
+        return responseEntity;
     }
 }

@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class OrderEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderid;
 
     @Column(name = "item")
