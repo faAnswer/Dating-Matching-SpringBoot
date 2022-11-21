@@ -7,11 +7,19 @@
     <title>Document</title>
   </head>
   <body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       #chatboxContainer {
         position: fixed;
         bottom: 2rem;
         right: 2rem;
+        z-index: 1;
       }
       #chatboxContainer iframe {
         transform: scale(0);
@@ -23,11 +31,32 @@
       #chatboxContainer.active iframe {
         transform: scale(1);
       }
+      .open-chat-btn {
+        position: relative;
+        background: transparent;
+        border: 0;
+        color: white;
+      }
+      .open-chat-btn i {
+        font-size: 3rem;
+      }
+      .open-chat-btn span {
+        font-size: 0.8rem;
+        position: absolute;
+        top: 0.7rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
     </style>
     <div id="chatboxContainer">
-      <iframe src="/chat?user=System"></iframe>
-      <button onclick="chatboxContainer.classList.toggle('active')">
-        open
+      <iframe src="/chat.html?user=System"></iframe>
+      <button
+        class="open-chat-btn"
+        onclick="chatboxContainer.classList.toggle('active')"
+      >
+        <i class="fa-regular fa-message"></i>
+        <span>Open</span>
       </button>
     </div>
   </body>
