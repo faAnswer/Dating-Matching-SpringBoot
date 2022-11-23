@@ -38,7 +38,7 @@ public class MatchViewController {
         }
 
         List<UserProfileDTO> matchUserList = iMatchService.getMatchUser(authentication);
-        List<UserProfileDTO> mockUserList = iMatchService.getMockUser(new int[]{36, 37, 38}, authentication);
+        List<UserProfileDTO> mockUserList = iMatchService.getMockUser(new int[]{42, 40, 43, 44, 45, 46, 36, 37, 38, 352}, authentication);
 
         matchUserList.addAll(mockUserList);
 

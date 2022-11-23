@@ -26,9 +26,9 @@ public class PaymentController {
 
         Map<String, String> map = new HashMap<>();
 
-        map.put("item", "test");
-        map.put("unitrate", "100");
-        map.put("qty", "100");
+        map.put("item", "解鎖Nohorny每日配對");
+        map.put("unitrate", "99");
+        map.put("qty", "1");
 
         OrderEntity orderEntity = iPaymentService.getOrder(map, authentication);
 
